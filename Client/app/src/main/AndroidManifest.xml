@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.client">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:layout_gravity="center"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label=""
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".AlarmList"></activity>
+        <activity android:name=".FalldownList" />
+        <activity android:name=".GPSList" />
+        <activity android:name=".ActivityList" />
+        <activity android:name=".AlarmActivity" />
+        <activity android:name=".OptionActivity" />
+        <activity android:name=".ClientLoginActivity" />
+        <activity android:name=".ClientLoginRegisterActivity" />
+        <activity android:name=".ClientMainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
