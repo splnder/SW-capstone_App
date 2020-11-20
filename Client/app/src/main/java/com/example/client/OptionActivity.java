@@ -17,6 +17,7 @@ public class OptionActivity extends AppCompatActivity {
     private Switch sw1, sw2, sw3;
     private Button button4;
     Toolbar toolbar;
+    Server server;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,8 @@ public class OptionActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    //True이면 할 일
+                    server.activePost();
+                    finish();
                 }else{
                     //False이면 할 일
                 }
@@ -43,8 +45,8 @@ public class OptionActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    sw2.setChecked(true);
-                    //True이면 할 일
+                    server.fallPost();
+                    finish();
                 }else{
                     //False이면 할 일
                 }
