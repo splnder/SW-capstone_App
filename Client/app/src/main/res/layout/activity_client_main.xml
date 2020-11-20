@@ -47,7 +47,7 @@
             android:layout_width="170dp"
             android:layout_height="170dp"
             android:background="@drawable/buttonbackground2"
-            android:text=" 쓰러짐 감지     목록"
+            android:text=" 쓰 러 짐 감 지     목 록"
             android:textColor="#FFFFFF"
             android:textSize="25dp"
             android:textStyle="bold"

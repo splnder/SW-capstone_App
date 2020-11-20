@@ -3,20 +3,19 @@ package com.example.client;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
-import android.widget.TextView;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
 public class OptionActivity extends AppCompatActivity {
 
     private Switch sw1, sw2, sw3;
-    private Button button;
+    private Button button4;
     Toolbar toolbar;
 
     @Override
@@ -30,7 +29,11 @@ public class OptionActivity extends AppCompatActivity {
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            // 기능 추가
+                if (isChecked) {
+                    //True이면 할 일
+                }else{
+                    //False이면 할 일
+                }
             }
         });
 
@@ -39,7 +42,12 @@ public class OptionActivity extends AppCompatActivity {
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // 기능 추가
+                if (isChecked) {
+                    sw2.setChecked(true);
+                    //True이면 할 일
+                }else{
+                    //False이면 할 일
+                }
             }
         });
 
@@ -48,17 +56,21 @@ public class OptionActivity extends AppCompatActivity {
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // 기능 추가
+                if (isChecked) {
+
+                }else{
+                    //False이면 할 일
+                }
             }
         });
 
-        button = findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() // 회원가입 버튼 클릭 시
+        button4 = findViewById(R.id.button4);
+        button4.setOnClickListener(new View.OnClickListener() // 회원가입 버튼 클릭 시
         {
             @Override
             public void onClick(View v)
-            {
-                // 기능 추가
+            { Intent intent = new Intent(OptionActivity.this, AlarmTarget.class);
+                startActivity(intent);
             }
         });
 
@@ -73,7 +85,6 @@ public class OptionActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
                 finish();
-                return true;
             }
         }
         return super.onOptionsItemSelected(item);

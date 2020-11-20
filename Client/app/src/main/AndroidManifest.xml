@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AlarmList"></activity>
+        <activity android:name=".AlarmTarget"></activity>
+        <activity android:name=".AlarmList" />
         <activity android:name=".FalldownList" />
         <activity android:name=".GPSList" />
         <activity android:name=".ActivityList" />
