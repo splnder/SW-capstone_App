@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity"
-        android:background="#FFFFFF"
+        android:background="@drawable/background"
         tools:layout_editor_absoluteX="-140dp"
         tools:layout_editor_absoluteY="16dp">
 
@@ -28,63 +28,63 @@
 
         <Button
             android:id="@+id/button1"
-            android:layout_width="350dp"
-            android:layout_height="80dp"
-            android:background="@drawable/button"
-            android:text="활동 감지 목록"
-            android:textColor="#E65100"
-            android:textSize="35dp"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:background="@drawable/buttonbackground"
+            android:text=" 활 동  감 지     목 록"
+            android:textColor="#FFFFFF"
+            android:textSize="25dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.450"
+            app:layout_constraintHorizontal_bias="0.100"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.600" />
 
         <Button
             android:id="@+id/button2"
-            android:layout_width="350dp"
-            android:layout_height="80dp"
-            android:background="@drawable/button"
-            android:text="쓰러짐 감지 목록"
-            android:textColor="#E65100"
-            android:textSize="35dp"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:background="@drawable/buttonbackground2"
+            android:text=" 쓰러짐 감지     목록"
+            android:textColor="#FFFFFF"
+            android:textSize="25dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.450"
+            app:layout_constraintHorizontal_bias="0.900"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.750" />
+            app:layout_constraintVertical_bias="0.600" />
 
         <Button
             android:id="@+id/button3"
             android:layout_width="350dp"
-            android:layout_height="80dp"
-            android:background="@drawable/button"
-            android:text="GPS 감지 목록"
+            android:layout_height="85dp"
+            android:background="@drawable/buttonbackground3"
+            android:text="G P S     감 지  목 록"
+            android:textColor="#FFFFFF"
+            android:textSize="25dp"
             android:textStyle="bold"
-            android:textColor="#E65100"
-            android:textSize="35dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.450"
+            app:layout_constraintHorizontal_bias="0.500"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.900" />
+            app:layout_constraintVertical_bias="0.8" />
 
         <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="400dp"
-            android:layout_height="200dp"
+            android:layout_width="472dp"
+            android:layout_height="231dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.508"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.120"
-            app:srcCompat="@drawable/logo2" />
+            app:layout_constraintVertical_bias="0.112"
+            app:srcCompat="@drawable/logo11" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
