@@ -25,31 +25,33 @@
 
         </androidx.appcompat.widget.Toolbar>
 
+
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:gravity="center"
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/background">
+            android:background="@drawable/background"
+            android:gravity="center"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="-16dp"
+            tools:layout_editor_absoluteY="0dp">
 
             <TextView
                 android:id="@+id/main_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="20dp"
                 android:textColor="#000000"
+                android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-
         <Button
             android:id="@+id/button1"
-            android:layout_width="170dp"
-            android:layout_height="170dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:background="@drawable/buttonbackground"
             android:text=" 활 동  감 지     목 록"
             android:textColor="#FFFFFF"
@@ -57,15 +59,15 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.100"
+            app:layout_constraintHorizontal_bias="0.150"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.600" />
 
         <Button
             android:id="@+id/button2"
-            android:layout_width="170dp"
-            android:layout_height="170dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:background="@drawable/buttonbackground2"
             android:text=" 쓰 러 짐 감 지     목 록"
             android:textColor="#FFFFFF"
@@ -73,15 +75,15 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.900"
+            app:layout_constraintHorizontal_bias="0.850"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.600" />
 
         <Button
             android:id="@+id/button3"
-            android:layout_width="350dp"
-            android:layout_height="85dp"
+            android:layout_width="320dp"
+            android:layout_height="80dp"
             android:background="@drawable/buttonbackground3"
             android:text="G P S     감 지  목 록"
             android:textColor="#FFFFFF"
@@ -92,7 +94,7 @@
             app:layout_constraintHorizontal_bias="0.500"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.85" />
+            app:layout_constraintVertical_bias="0.8" />
 
         <ImageView
             android:id="@+id/imageView3"
