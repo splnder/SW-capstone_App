@@ -39,6 +39,7 @@ import java.util.TimerTask;
 
  public class ClientMainActivity extends AppCompatActivity {
      private static final int ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE = 1;
+     boolean mainStatus = false;
 
 
     Toolbar toolbar;
@@ -54,6 +55,7 @@ import java.util.TimerTask;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_main);
 
+        mainStatus = true;
         ignoreBatteryOptimization();
         checkPermission();
 
@@ -144,7 +146,16 @@ import java.util.TimerTask;
         });
     }
 
+
+
+
     @Override
+    public void onStart() {
+        super.onStart();
+        Intent activeIntent = new Intent(getApplicationContext(),ActivenessCheckService.class);
+        startService(activeIntent);
+    }
+     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.option, menu);
@@ -206,6 +217,7 @@ import java.util.TimerTask;
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mainStatus = false;
         Intent intent = new Intent( getApplicationContext(),ActivenessCheckService.class);
         stopService(intent);
     }

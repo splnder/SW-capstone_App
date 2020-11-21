@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+
+
+    //blue to orange transition
+    <Transition
+        motion:constraintSetStart="@id/s1"
+        motion:constraintSetEnd="@id/s2"
+        motion:motionInterpolator="linear">
+
+        <OnSwipe
+            motion:dragDirection="dragLeft"/>
+
+        <KeyFrameSet>
+            <KeyAttribute
+                motion:motionTarget="@+id/reflect" >
+                <CustomAttribute
+                    motion:attributeName="backgroundColor"
+                    motion:customColorValue="#00000000" />
+            </KeyAttribute>
+        </KeyFrameSet>
+
+    </Transition>
+
+
+    //orange to blue transition
+    <Transition
+        motion:constraintSetStart="@id/s2"
+        motion:constraintSetEnd="@id/s1"
+        motion:motionInterpolator="linear">
+        <OnSwipe
+            motion:dragDirection="dragRight"/>
+        <KeyFrameSet>
+            <KeyAttribute
+                motion:motionTarget="@+id/reflect" >
+                <CustomAttribute
+                    motion:attributeName="backgroundColor"
+                    motion:customColorValue="#00000000" />
+            </KeyAttribute>
+        </KeyFrameSet>
+    </Transition>
+
+
+    //orange to red transition
+    <Transition
+        motion:constraintSetStart="@id/s2"
+        motion:constraintSetEnd="@id/s3"
+        motion:motionInterpolator="linear">
+        <OnSwipe
+            motion:dragDirection="dragLeft"/>
+        <KeyFrameSet>
+            <KeyAttribute
+                motion:motionTarget="@+id/reflect" >
+                <CustomAttribute
+                    motion:attributeName="backgroundColor"
+                    motion:customColorValue="#00000000" />
+            </KeyAttribute>
+        </KeyFrameSet>
+    </Transition>
+
+    //red to orange transition
+    <Transition
+        motion:constraintSetStart="@id/s3"
+        motion:constraintSetEnd="@id/s2"
+        motion:motionInterpolator="linear">
+        <OnSwipe
+            motion:dragDirection="dragRight"/>
+        <KeyFrameSet>
+            <KeyAttribute
+                motion:motionTarget="@+id/reflect" >
+                <CustomAttribute
+                    motion:attributeName="backgroundColor"
+                    motion:customColorValue="#00000000" />
+            </KeyAttribute>
+        </KeyFrameSet>
+    </Transition>
+    //states
+    <ConstraintSet android:id="@+id/s1">
+        <Constraint android:id="@+id/button1">
+            <Transform android:translationX="0dp" />
+        </Constraint>
+
+        <Constraint android:id="@+id/button2">
+            <Transform android:rotationY="-30" android:translationX="250dp"/>
+        </Constraint>
+
+        <Constraint android:id="@+id/button3">
+            <Transform android:rotationY="-30" android:translationX="500dp"/>
+        </Constraint>
+
+        <Constraint android:id="@+id/reflect">
+            <Transform
+                android:rotationX="50"
+                android:translationY="190dp"
+                android:scaleX="1.15"
+                android:scaleY="0.3"
+                />
+            <CustomAttribute
+                motion:attributeName="backgroundColor"
+                motion:customColorValue="#110099cc" />
+        </Constraint>
+    </ConstraintSet>
+
+
+    <ConstraintSet android:id="@+id/s2">
+        <Constraint android:id="@+id/button1">
+            <Transform android:rotationY="30" android:translationX="-250dp"/>
+        </Constraint>
+
+        <Constraint android:id="@+id/button2">
+            <Transform android:rotationY="0" android:translationX="0dp"/>
+        </Constraint>
+
+        <Constraint android:id="@+id/button3">
+            <Transform android:rotationY="-30" android:translationX="250dp"/>
+        </Constraint>
+
+        <Constraint android:id="@+id/reflect">
+            <Transform
+                android:rotationX="50"
+                android:translationY="190dp"
+                android:scaleX="1.15"
+                android:scaleY="0.3"
+                />
+            <CustomAttribute
+                motion:attributeName="backgroundColor"
+                motion:customColorValue="#11ff8800" />
+        </Constraint>
+    </ConstraintSet>
+
+
+    <ConstraintSet android:id="@+id/s3">
+        <Constraint android:id="@+id/button1">
+            <Transform android:rotationY="30" android:translationX="-500dp"/>
+        </Constraint>
+
+        <Constraint android:id="@+id/button2">
+            <Transform android:rotationY="30" android:translationX="-250dp"/>
+        </Constraint>
+
+        <Constraint android:id="@+id/button3">
+            <Transform android:rotationY="0" android:translationX="0dp"/>
+        </Constraint>
+        <Constraint android:id="@+id/reflect">
+            <Transform
+                android:rotationX="50"
+                android:translationY="190dp"
+                android:scaleX="1.15"
+                android:scaleY="0.3"
+                />
+            <CustomAttribute
+                motion:attributeName="backgroundColor"
+                motion:customColorValue="#11ff4444" />
+        </Constraint>
+    </ConstraintSet>
+
+</MotionScene>

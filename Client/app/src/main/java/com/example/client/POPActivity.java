@@ -12,15 +12,15 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class POPActivity extends Activity {
-    private static final int ALERT_DELAY_TIME = 10; //초단위로 미감지 시간 제어
-    static int counter = 0;
+    private static final int ALERT_DELAY_TIME = 10; //초단위로 메세지 확인 누르기까지 기다리는 시간
+    static int counter;
     Timer count = new Timer();
     TimerTask limit;
 
     @Override
 
     public void onCreate(Bundle savedInstanceState) {
-
+        counter=0;
 
         super.onCreate(savedInstanceState);
         //타이틀바 없애기

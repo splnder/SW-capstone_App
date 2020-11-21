@@ -11,9 +11,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class TimerService extends Service {
-    private static final int ALERT_DELAY_TIME = 10; //초단위로 미감지 시간 제어
-    private static final String WAKELOCK_TAG = "AAAAAAAAAAAAA:wakelock";
-    static int counter = 0;
+    private static final int ALERT_DELAY_TIME = 10; //초단위로 메세지 띄우기 전까지의 시간
+    private static final String WAKELOCK_TAG = "------------------------:wakelock";
+    static int counter;
 
 
     Timer count = new Timer();
@@ -22,7 +22,7 @@ public class TimerService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
 
-
+        counter=0;
 
         limit  = new TimerTask(){
             @Override
