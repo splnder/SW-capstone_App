@@ -1,7 +1,12 @@
 package com.example.client;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,16 +22,21 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import java.time.*;
+
 public class Server extends AppCompatActivity{
     public static final MediaType JSON
             = MediaType.get("application/json; charset=utf-8");
+    private LocationManager locationManager;
+    private static final int REQUEST_CODE_LOCATION = 2;
 
     public void activePost() {
         try{
             OkHttpClient client = new OkHttpClient();
 
+
             RequestBody formBody = new FormBody.Builder()
-                    .add( "timestamp", "2020-11-20T15:55:14.009+00:00")
+                    .add( "timestamp", "")
                     .add( "status", String.valueOf(500))
                     .add( "error", "Internal Server Error")
                     .add( "message", "")
@@ -49,20 +59,23 @@ public class Server extends AppCompatActivity{
     }
 
     public void fallPost() {
+
         try{
             OkHttpClient client = new OkHttpClient();
             JSONObject jsonInput = new JSONObject();
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            String time = currentDateTime.toString();
 
             jsonInput.put( "latitude", 37.282913);
             jsonInput.put("longitude", 127.04607);
-            jsonInput.put("timestamp","2020-11-21T08:26:41.414Z");
-            jsonInput.put("userId",19);
+            jsonInput.put("timestamp",time);
+            jsonInput.put("userId",20);
 
             MediaType JSON = MediaType.get("application/json; charset=utf-8");
             RequestBody reqBody = RequestBody.create(jsonInput.toString(),JSON);
 
             Request request = new Request.Builder()
-                    .url("http://101.101.217.202:9000/fall/user/19/alarm")
+                    .url("http://101.101.217.202:9000/fall/user/20/alarm")
                     .post(reqBody)
                     .build();
 
@@ -75,4 +88,6 @@ public class Server extends AppCompatActivity{
             System.err.println(e.toString());
         }
     }
+
+
 }
