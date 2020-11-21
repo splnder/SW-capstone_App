@@ -3,6 +3,7 @@
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.hardware.SensorEvent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -30,6 +31,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import java.util.Timer;
 import java.util.TimerTask;
 
+
  public class ClientMainActivity extends AppCompatActivity
 {
     Toolbar toolbar;
@@ -37,6 +39,9 @@ import java.util.TimerTask;
     FirebaseMessagingServiceInstance FMS = new FirebaseMessagingServiceInstance();
     Server server = new Server();
     AlarmList alarmlist = new AlarmList();
+    DetectFall detectfall = new DetectFall();
+
+
     public android.view.View View;
 
     @Override
@@ -80,6 +85,7 @@ import java.util.TimerTask;
             }
         };
         timer.schedule(TT, 0, 1000);
+
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -154,7 +160,8 @@ import java.util.TimerTask;
                 Toast.makeText(getApplicationContext(), "확인", Toast.LENGTH_SHORT).show();
             }
         });
-        if (server.alarmMessage != server.alarmMessageCheck) {
+        if (server.alarmMessage != server.alarmMessageCheck )
+        {
             dialog.show();
             server.alarmMessageCheck = server.alarmMessage;
         }

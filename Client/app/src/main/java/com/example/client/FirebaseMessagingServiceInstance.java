@@ -45,8 +45,8 @@ public class FirebaseMessagingServiceInstance extends FirebaseMessagingService {
     public static final MediaType JSON
             = MediaType.get("application/json; charset=utf-8");
 
-    public String FirebaseAlarmMessage = "";
-    public String FirebaseAlarmMessageCheck = "";
+    static public String FirebaseAlarmMessage = null;
+    static public String FirebaseAlarmMessageCheck = null;
 
     @Override
     public void onNewToken(String token) {

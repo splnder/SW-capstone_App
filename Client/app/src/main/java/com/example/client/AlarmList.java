@@ -15,7 +15,7 @@ public class AlarmList extends AppCompatActivity {
     Server server;
     FirebaseMessagingServiceInstance FMS = new FirebaseMessagingServiceInstance();
     Toolbar toolbar;
-    private ListView listview;
+    ListView listview;
     public ArrayList<String> items;
     public ArrayAdapter adapter;
 
@@ -30,13 +30,19 @@ public class AlarmList extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         items = new ArrayList<String>();
-        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_single_choice, items);
+        adapter = new ArrayAdapter<String>(AlarmList.this, android.R.layout.simple_list_item_single_choice, items);
 
         listview = (ListView) findViewById(R.id.listview1);
-        listview.setAdapter(adapter) ;
+        listview.setAdapter(adapter);
 
-        
-
+        if((server.alarmMessage != null && server.alarmMessage != server.alarmMessageCheck))
+        {
+            items.add(server.alarmMessage);
+        }
+        else if((FMS.FirebaseAlarmMessage != null && FMS.FirebaseAlarmMessage != FMS.FirebaseAlarmMessageCheck))
+        {
+            items.add(FMS.FirebaseAlarmMessage);
+        }
     }
 
     @Override
