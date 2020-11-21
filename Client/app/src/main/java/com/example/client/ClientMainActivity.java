@@ -1,8 +1,10 @@
  package com.example.client;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -18,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,7 +48,13 @@ import java.util.TimerTask;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_main);
 
-        Log.d("mainActivity", "start....");
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    0);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                    1);
+        }
+
         //FCM token
         final String[] token = {""};
         FirebaseMessaging.getInstance().getToken()
@@ -66,7 +75,7 @@ import java.util.TimerTask;
                     }
                 });
 
-        Log.d("mainActivity", "end.....");
+
 
         Intent intent = new Intent(ClientMainActivity.this, DetectFall.class);
         startService(intent);
