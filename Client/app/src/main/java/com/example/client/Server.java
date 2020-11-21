@@ -30,6 +30,9 @@ public class Server extends AppCompatActivity{
     private LocationManager locationManager;
     private static final int REQUEST_CODE_LOCATION = 2;
 
+    public String alarmMessage = "";
+    public String alarmMessageCheck = "";
+
     public void activePost() {
         try{
             OkHttpClient client = new OkHttpClient();
