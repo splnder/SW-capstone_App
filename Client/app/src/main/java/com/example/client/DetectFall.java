@@ -1,12 +1,16 @@
 package com.example.client;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Service;
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
 import android.widget.TextView;
 import android.view.MotionEvent;
@@ -16,7 +20,7 @@ import android.view.View;
 import static java.lang.Math.abs;
 
 
-public class DetectFall extends AppCompatActivity implements SensorEventListener {
+public class DetectFall extends Service implements SensorEventListener {
 
     private static final String TAG = "DetectFall";
 
@@ -48,10 +52,15 @@ public class DetectFall extends AppCompatActivity implements SensorEventListener
     // for radian -> dgree
     private double RAD2DGR = 180 / Math.PI;
     private static final float NS2S = 1.0f/1000000000.0f;
+    Server server = new Server();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+    @Override
+    public void onCreate() {
+        super.onCreate();
 
         Log.d(TAG, "onCreate: Initializing Sensor Services");
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -72,6 +81,7 @@ public class DetectFall extends AppCompatActivity implements SensorEventListener
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
+
 
     @Override
     public void onSensorChanged(SensorEvent event) {
@@ -112,13 +122,22 @@ public class DetectFall extends AppCompatActivity implements SensorEventListener
 
             //if (maxQueue() > THRESHOLD_2) {
             if(MAXch > 0.6 && maxQueue() > THRESHOLD_2){
+                System.out.println("fall?");
                 flag = 1;
             }
+
             if(flag ==1)
             {
                 if (accFalldown()) {
+                    System.out.println("fall!!!!");
                     flag=0;
                     //api request
+                    new Thread(new Runnable() {
+                        @Override public void run() {
+                            server.fallPost();
+                        }
+                    }).start();
+
                 } else {
                     MAXch = 0;
                 }
@@ -223,6 +242,7 @@ public class DetectFall extends AppCompatActivity implements SensorEventListener
         else count++;
         return false;
     }
+
 
 
 }

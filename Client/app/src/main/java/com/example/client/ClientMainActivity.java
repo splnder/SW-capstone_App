@@ -58,7 +58,8 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
         Log.d("mainActivity", "end.....");
 
-        Intent intent = getIntent();
+        Intent intent = new Intent(ClientMainActivity.this, DetectFall.class);
+        startService(intent);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
