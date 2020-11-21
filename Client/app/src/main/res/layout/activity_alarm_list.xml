@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@drawable/background2"
     tools:context=".AlarmList">
 
     <androidx.appcompat.widget.Toolbar
@@ -20,7 +20,7 @@
         android:id="@+id/listview1"
         android:layout_width="350dp"
         android:layout_height="550dp"
-        android:background="#FFFFFF"
+        android:background="@drawable/background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
