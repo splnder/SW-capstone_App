@@ -59,7 +59,6 @@ public class Server extends AppCompatActivity{
     }
 
     public void fallPost() {
-
         try{
             OkHttpClient client = new OkHttpClient();
             JSONObject jsonInput = new JSONObject();

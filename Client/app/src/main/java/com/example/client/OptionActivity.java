@@ -31,8 +31,7 @@ public class OptionActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    server.activePost();
-                    finish();
+
                 }else{
                     //False이면 할 일
                 }
@@ -45,8 +44,7 @@ public class OptionActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    server.fallPost();
-                    finish();
+
                 }else{
                     //False이면 할 일
                 }

@@ -1,6 +1,7 @@
  package com.example.client;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -23,11 +25,19 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.RemoteMessage;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
  public class ClientMainActivity extends AppCompatActivity
 {
     Toolbar toolbar;
     private Button button1, button2, button3;
+    FirebaseMessagingServiceInstance FMS = new FirebaseMessagingServiceInstance();
+    Server server = new Server();
+    AlarmList alarmlist = new AlarmList();
+    public android.view.View View;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -60,6 +70,17 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
         Intent intent = new Intent(ClientMainActivity.this, DetectFall.class);
         startService(intent);
+
+        Timer timer = new Timer();
+
+        TimerTask TT = new TimerTask() {
+            @Override
+            public void run() {
+                Popup1(View);
+                Popup2(View);
+            }
+        };
+        timer.schedule(TT, 0, 1000);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -122,7 +143,38 @@ import com.google.firebase.messaging.FirebaseMessaging;
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
 
+    public void Popup1(View view) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 
+        dialog.setTitle("알 림");
+        dialog.setMessage(server.alarmMessage);
+        dialog.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getApplicationContext(), "확인", Toast.LENGTH_SHORT).show();
+            }
+        });
+        if (server.alarmMessage != server.alarmMessageCheck) {
+            dialog.show();
+            server.alarmMessageCheck = server.alarmMessage;
+        }
+    }
+
+    public void Popup2(View view)
+    {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+
+        dialog.setTitle("알 림");
+        dialog.setMessage(FMS.FirebaseAlarmMessage);
+        dialog.setPositiveButton("확인",new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getApplicationContext(), "확인", Toast.LENGTH_SHORT).show();
+            }
+        });
+        if(FMS.FirebaseAlarmMessage != FMS.FirebaseAlarmMessageCheck) {
+            dialog.show();
+            FMS.FirebaseAlarmMessageCheck = FMS.FirebaseAlarmMessage;
+        }
     }
 }

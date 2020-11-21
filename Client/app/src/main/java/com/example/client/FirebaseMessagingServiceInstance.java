@@ -5,13 +5,17 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.NotificationCompat;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -40,6 +44,9 @@ public class FirebaseMessagingServiceInstance extends FirebaseMessagingService {
     private static final String TAG = "Firebase";
     public static final MediaType JSON
             = MediaType.get("application/json; charset=utf-8");
+
+    public String FirebaseAlarmMessage = "";
+    public String FirebaseAlarmMessageCheck = "";
 
     @Override
     public void onNewToken(String token) {
@@ -92,12 +99,12 @@ public class FirebaseMessagingServiceInstance extends FirebaseMessagingService {
             //sendNotification(remoteMessage.getNotification().getBody());
             Log.d("response",remoteMessage.getData().toString());
             sendNotification(remoteMessage.getData());
+
+            FirebaseAlarmMessage = remoteMessage.getData().toString();
+
         }
         Log.d("response","before out onMessageReceived");
     }
-
-
-
 
     private void sendNotification(Map<String,String> map) {
         Intent intent = new Intent(this, ClientMainActivity.class);
