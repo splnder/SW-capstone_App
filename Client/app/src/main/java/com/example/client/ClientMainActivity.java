@@ -1,7 +1,9 @@
  package com.example.client;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -9,13 +11,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.messaging.FirebaseMessaging;
 
  public class ClientMainActivity extends AppCompatActivity
 {
@@ -27,6 +34,29 @@ import com.google.android.material.navigation.NavigationView;
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_main);
+
+        Log.d("mainActivity", "start....");
+        //FCM token
+        final String[] token = {""};
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("mainActivity", "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        token[0] = task.getResult();
+
+                        // Log and toast
+                        Log.d("mainActivity", token[0]);
+                        Toast.makeText(ClientMainActivity.this, token[0], Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        Log.d("mainActivity", "end.....");
 
         Intent intent = getIntent();
 
