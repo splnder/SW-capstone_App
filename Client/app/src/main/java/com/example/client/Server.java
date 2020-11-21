@@ -33,22 +33,26 @@ public class Server extends AppCompatActivity{
     public String alarmMessage = "";
     public String alarmMessageCheck = "";
 
+    static int userid = 19 ;
+
     public void activePost() {
         try{
             OkHttpClient client = new OkHttpClient();
+            JSONObject jsonInput = new JSONObject();
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            String time = currentDateTime.toString();
 
+            jsonInput.put( "latitude", 37.282913);
+            jsonInput.put("longitude", 127.04607);
+            jsonInput.put("timestamp",time);
+            jsonInput.put("userId",19);
 
-            RequestBody formBody = new FormBody.Builder()
-                    .add( "timestamp", "")
-                    .add( "status", String.valueOf(500))
-                    .add( "error", "Internal Server Error")
-                    .add( "message", "")
-                    .add("path", "/non-active/user/19/alarm")
-                    .build();
+            MediaType JSON = MediaType.get("application/json; charset=utf-8");
+            RequestBody reqBody = RequestBody.create(jsonInput.toString(),JSON);
 
             Request request = new Request.Builder()
-                    .url("http://101.101.217.202:9000/non-active/user/19/alarm")
-                    .post(formBody)
+                    .url("http://101.101.217.202:9000/non-active/user/" + userid + "/alarm")
+                    .post(reqBody)
                     .build();
 
             Response response = client.newCall(request).execute();
@@ -77,7 +81,7 @@ public class Server extends AppCompatActivity{
             RequestBody reqBody = RequestBody.create(jsonInput.toString(),JSON);
 
             Request request = new Request.Builder()
-                    .url("http://101.101.217.202:9000/fall/user/19/alarm")
+                    .url("http://101.101.217.202:9000/fall/user/" + userid + "/alarm")
                     .post(reqBody)
                     .build();
 

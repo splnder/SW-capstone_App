@@ -6,7 +6,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <application
         android:usesCleartextTraffic="true"
         android:layout_gravity="center"
@@ -37,6 +40,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".POPActivity"
+            android:theme="@android:style/Theme.Dialog">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".AlertActivity"
+            android:theme="@android:style/Theme.Dialog">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <service
             android:name="FirebaseMessagingServiceInstance"
             android:exported="false">
@@ -45,6 +63,15 @@
             </intent-filter>
         </service>
         <service android:name="DetectFall"></service>
+        <service
+            android:name=".TimerService"
+            android:enabled="true"
+            android:exported="true"></service>
+        <service
+            android:name=".AlwaysOnTopService"
+            android:enabled="true"
+            android:permission="android.permission.SYSTEM_ALERT_WINDOW" />
+        <service android:name=".ActivenessCheckService" />
 
     </application>
 
