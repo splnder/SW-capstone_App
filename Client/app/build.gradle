@@ -8,8 +8,8 @@ android {
 
     defaultConfig {
         applicationId "com.example.client"
-        minSdkVersion 24
-        targetSdkVersion 26
+        minSdkVersion 28
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
