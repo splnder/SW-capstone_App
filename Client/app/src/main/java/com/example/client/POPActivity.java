@@ -12,6 +12,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class POPActivity extends Activity {
+    private static final int ALERT_DELAY_TIME = 10; //초단위로 미감지 시간 제어
     static int counter = 0;
     Timer count = new Timer();
     TimerTask limit;
@@ -31,7 +32,8 @@ public class POPActivity extends Activity {
             public void run(){
                 Log.e("알람 보내기", counter + "초");
                 counter++;
-                if(counter == 5) {
+                if(counter == ALERT_DELAY_TIME) {
+                    counter=0;
                     this.cancel();
                     Intent popIntent = new Intent(getApplicationContext(),AlertActivity.class);
                     startActivity(popIntent);

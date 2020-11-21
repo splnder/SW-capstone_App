@@ -38,8 +38,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
  public class ClientMainActivity extends AppCompatActivity {
-
-    private static final int ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE = 1;
+     private static final int ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE = 1;
 
 
     Toolbar toolbar;
@@ -73,7 +72,6 @@ import java.util.TimerTask;
 
 
 
-        Log.d("mainActivity", "start....");
         //FCM token
         final String[] token = {""};
         FirebaseMessaging.getInstance().getToken()
@@ -90,11 +88,9 @@ import java.util.TimerTask;
 
                         // Log and toast
                         Log.d("mainActivity", token[0]);
-                        Toast.makeText(ClientMainActivity.this, token[0], Toast.LENGTH_SHORT).show();
                     }
                 });
 
-        Log.d("mainActivity", "end.....");
 
         Intent intent = new Intent(ClientMainActivity.this, DetectFall.class);
         startService(intent);
