@@ -69,13 +69,13 @@ public class Server extends AppCompatActivity{
             jsonInput.put( "latitude", 37.282913);
             jsonInput.put("longitude", 127.04607);
             jsonInput.put("timestamp",time);
-            jsonInput.put("userId",20);
+            jsonInput.put("userId",19);
 
             MediaType JSON = MediaType.get("application/json; charset=utf-8");
             RequestBody reqBody = RequestBody.create(jsonInput.toString(),JSON);
 
             Request request = new Request.Builder()
-                    .url("http://101.101.217.202:9000/fall/user/20/alarm")
+                    .url("http://101.101.217.202:9000/fall/user/19/alarm")
                     .post(reqBody)
                     .build();
 
