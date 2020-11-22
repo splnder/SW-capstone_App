@@ -11,7 +11,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class TimerService extends Service {
-    private static final int ALERT_DELAY_TIME = 10; //초단위로 메세지 띄우기 전까지의 시간
+    private static final int ALERT_DELAY_TIME = 180; //메세지 띄우기 전까지의 시간 (초 단위)
     private static final String WAKELOCK_TAG = "------------------------:wakelock";
     static int counter;
 
@@ -33,7 +33,7 @@ public class TimerService extends Service {
                     counter=0;
                     PowerManager powerManager = (PowerManager)getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = powerManager.newWakeLock(
-                            PowerManager.SCREEN_BRIGHT_WAKE_LOCK |PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE,
+                            PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE,
                             WAKELOCK_TAG);
                     wakeLock.acquire();
 

@@ -12,7 +12,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class POPActivity extends Activity {
-    private static final int ALERT_DELAY_TIME = 10; //초단위로 메세지 확인 누르기까지 기다리는 시간
+    private static final int ALERT_DELAY_TIME = 10; //메세지 확인 누르기까지 기다리는 시간(초 단위)
     static int counter;
     Timer count = new Timer();
     TimerTask limit;

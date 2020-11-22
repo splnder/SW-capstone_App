@@ -75,7 +75,7 @@ public class FirebaseMessagingServiceInstance extends FirebaseMessagingService {
             RequestBody reqBody = RequestBody.create(jsonInput.toString(),JSON);
 
             Request request = new Request.Builder()
-                    .url("http://101.101.217.202:9000/user/19/has-app/true")
+                    .url("http://101.101.217.202:9000/user/20/has-app/true")
                     .post(reqBody)
                     .build();
 
