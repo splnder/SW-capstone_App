@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ClientMainActivity">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/motionLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity"
-        android:background="@drawable/background"
-        tools:layout_editor_absoluteX="-140dp"
-        tools:layout_editor_absoluteY="16dp">
+        app:layoutDescription="@xml/motion_scene_1"
+        app:showPaths="false"
+        tools:context=".ClientMainActivity"
+        >
 
         <androidx.appcompat.widget.Toolbar
             app:layout_constraintTop_toTopOf="parent"
@@ -25,86 +21,68 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:gravity="center"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/background">
-
-        <TextView
-            android:id="@+id/main_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Main Label"
-            android:textSize="20dp"
-            android:textColor="#000000"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-
         <Button
             android:id="@+id/button1"
-            android:layout_width="170dp"
-            android:layout_height="170dp"
-            android:background="@drawable/buttonbackground"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:background="@drawable/bg_button1"
             android:text=" 활 동  감 지     목 록"
             android:textColor="#FFFFFF"
             android:textSize="25dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.100"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.600" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            style="?android:attr/borderlessButtonStyle"
+            />
 
         <Button
             android:id="@+id/button2"
-            android:layout_width="170dp"
-            android:layout_height="170dp"
-            android:background="@drawable/buttonbackground2"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:background="@drawable/bg_button2"
             android:text=" 쓰 러 짐 감 지     목 록"
             android:textColor="#FFFFFF"
             android:textSize="25dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.900"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.600" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            style="?android:attr/borderlessButtonStyle"
+            />
+
 
         <Button
             android:id="@+id/button3"
-            android:layout_width="350dp"
-            android:layout_height="85dp"
-            android:background="@drawable/buttonbackground3"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:background="@drawable/bg_button3"
             android:text="G P S     감 지  목 록"
             android:textColor="#FFFFFF"
             android:textSize="25dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.500"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.8" />
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="472dp"
-            android:layout_height="231dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.508"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.112"
-            app:srcCompat="@drawable/logo11" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            style="?android:attr/borderlessButtonStyle"
+            />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+        <FrameLayout
+            android:id="@+id/reflect"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:background="@drawable/btn1_ref"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:layout_gravity="center"
+                android:textColor="@android:color/background_light" android:textSize="24sp" android:textStyle="bold"/>
+        </FrameLayout>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
