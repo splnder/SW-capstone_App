@@ -242,4 +242,7 @@ public class DetectFall extends Service implements SensorEventListener {
         else count++;
         return false;
     }
+
+
+
 }
