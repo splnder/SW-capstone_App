@@ -1,6 +1,7 @@
 package com.example.client;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.Window;
@@ -20,7 +21,9 @@ public class AlertActivity extends Activity {
         //api request
         new Thread(new Runnable() {
             @Override public void run() {
-                server.activePost();
+                Intent intent = new Intent(getApplicationContext(), Server.class);
+                intent.putExtra("activePost","true");
+                startActivity(intent);
             }
         }).start();
 

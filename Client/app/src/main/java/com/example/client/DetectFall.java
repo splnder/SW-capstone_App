@@ -134,7 +134,9 @@ public class DetectFall extends Service implements SensorEventListener {
                     //api request
                     new Thread(new Runnable() {
                         @Override public void run() {
-                            server.fallPost();
+                            Intent intent = new Intent(getApplicationContext(), Server.class);
+                            intent.putExtra("fallPost","true");
+                            startActivity(intent);
                         }
                     }).start();
 
