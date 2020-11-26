@@ -6,9 +6,11 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -51,10 +53,6 @@ import java.util.TimerTask;
     boolean mainStatus = false;
     Toolbar toolbar;
     private Button button1, button2, button3;
-    FirebaseMessagingServiceInstance FMS = new FirebaseMessagingServiceInstance();
-    Server server = new Server();
-    AlarmList alarmlist = new AlarmList();
-    public android.view.View View;
 
      private static final int GPS_ENABLE_REQUEST_CODE = 2001;
      private static final int PERMISSIONS_REQUEST_CODE = 100;
@@ -77,6 +75,8 @@ import java.util.TimerTask;
 
             checkRunTimePermission();
         }
+
+
         Intent activeIntent = new Intent(getApplicationContext(),ActivenessCheckService.class);
         startService(activeIntent);
         Log.e("error","165161656156165156165156");
@@ -88,7 +88,6 @@ import java.util.TimerTask;
             Intent popIntent = new Intent(getApplicationContext(),POPActivity.class);
             startActivityForResult(popIntent, 1);
         }
-
 
 
 
@@ -114,17 +113,6 @@ import java.util.TimerTask;
 
         Intent intent = new Intent(ClientMainActivity.this, DetectFall.class);
         startService(intent);
-
-        Timer timer = new Timer();
-
-        TimerTask TT = new TimerTask() {
-            @Override
-            public void run() {
-                Popup1(View);
-                Popup2(View);
-            }
-        };
-        timer.schedule(TT, 0, 1000);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -198,40 +186,6 @@ import java.util.TimerTask;
         return super.onOptionsItemSelected(item);
     }
 
-    public void Popup1(View view) {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-
-        dialog.setTitle("알 림");
-        dialog.setMessage(server.alarmMessage);
-        dialog.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getApplicationContext(), "확인", Toast.LENGTH_SHORT).show();
-            }
-        });
-        if (server.alarmMessage != server.alarmMessageCheck) {
-            dialog.show();
-            server.alarmMessageCheck = server.alarmMessage;
-        }
-    }
-
-    public void Popup2(View view)
-    {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-
-        dialog.setTitle("알 림");
-        dialog.setMessage(FMS.FirebaseAlarmMessage);
-        dialog.setPositiveButton("확인",new DialogInterface.OnClickListener(){
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getApplicationContext(), "확인", Toast.LENGTH_SHORT).show();
-            }
-        });
-        if(FMS.FirebaseAlarmMessage != FMS.FirebaseAlarmMessageCheck) {
-            dialog.show();
-            FMS.FirebaseAlarmMessageCheck = FMS.FirebaseAlarmMessage;
-        }
-    }
-
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -275,6 +229,7 @@ import java.util.TimerTask;
                 onDestroy();
             }
         }
+
         else if(requestCode == GPS_ENABLE_REQUEST_CODE){
             //사용자가 GPS 활성 시켰는지 검사
             if (checkLocationServicesStatus()) {

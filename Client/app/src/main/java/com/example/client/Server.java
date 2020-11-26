@@ -1,6 +1,7 @@
 package com.example.client;
 
 
+
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import android.app.Activity;
@@ -8,10 +9,17 @@ import android.content.Intent;
 
 public class Server extends Activity{
 
+
+
+
     public String alarmMessage = "";
     public String alarmMessageCheck = "";
 
+
+
+
     public Intent intent;
+
     public GPSTracker gpsTracker;
 
 
@@ -34,7 +42,7 @@ public class Server extends Activity{
         this.onDestroy();
     }
 
-    
+
     public void activePost(String latitude, String longitude) {
         HttpRequest httpRequest = new HttpRequest(getApplicationContext());
         httpRequest.execute("activePost",latitude,longitude);

@@ -13,7 +13,6 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
-        android:usesCleartextTraffic="true"
         android:layout_gravity="center"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,11 +20,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
         tools:ignore="ExtraText">
+        <activity android:name=".AlarmPopupActivity"></activity>
+
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="default_channel_id"/>
-        <activity android:name=".Server"></activity>
+            android:value="default_channel_id" />
+
+        <activity android:name=".Server" />
         <activity android:name=".AlarmTarget" />
         <activity android:name=".AlarmList" />
         <activity android:name=".FalldownList" />
@@ -58,23 +61,22 @@
         </activity>
 
         <service
-            android:name="FirebaseMessagingServiceInstance"
+            android:name=".FirebaseMessagingServiceInstance"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name="DetectFall"></service>
+        <service android:name=".DetectFall" />
         <service
             android:name=".TimerService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
         <service
             android:name=".AlwaysOnTopService"
             android:enabled="true"
             android:permission="android.permission.SYSTEM_ALERT_WINDOW" />
         <service android:name=".ActivenessCheckService" />
-
     </application>
 
 </manifest>
