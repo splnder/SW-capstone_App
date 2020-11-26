@@ -73,8 +73,8 @@
             android:name=".AlwaysOnTopService"
             android:enabled="true"
             android:permission="android.permission.SYSTEM_ALERT_WINDOW" />
-
         <service android:name=".ActivenessCheckService" />
+        <service android:name=".GPSListener" />
 
     </application>
 

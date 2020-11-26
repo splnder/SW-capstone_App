@@ -26,12 +26,15 @@ public class HttpRequest extends AsyncTask<String, Long, Boolean> {
         mContext = context;
     }
 
+    private String latitude;
+    private String longitude;
+
     @Override
     protected Boolean doInBackground(String... strings) {
-        String latitude = strings[1];
-        String longitude = strings[2];
-        if(strings[0] != null && strings[0].equals("activePost")){
+        if(strings[0] != null && strings[1] != null && strings[2] != null && strings[0].equals("activePost")){
             try{
+                latitude = strings[1];
+                longitude = strings[2];
                 OkHttpClient client = new OkHttpClient();
                 JSONObject jsonInput = new JSONObject();
                 SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
@@ -47,7 +50,7 @@ public class HttpRequest extends AsyncTask<String, Long, Boolean> {
                 RequestBody reqBody = RequestBody.create(jsonInput.toString(),JSON);
 
                 Request request = new Request.Builder()
-                        .url("http://101.101.217.202:9000/non-active/user/" + mContext.getString(R.string.user_id) + "/alarm")
+                        .url("http://101.101.217.202:9000/non-active/user/alarm")
                         .post(reqBody)
                         .build();
 
@@ -62,8 +65,10 @@ public class HttpRequest extends AsyncTask<String, Long, Boolean> {
                 System.err.println(e.toString());
             }
         }
-        else if(strings[0] != null && strings[0].equals("fallPost")){
+        else if(strings[0] != null && strings[1] != null && strings[2] != null && strings[0].equals("fallPost")){
             try{
+                latitude = strings[1];
+                longitude = strings[2];
                 OkHttpClient client = new OkHttpClient();
                 JSONObject jsonInput = new JSONObject();
                 SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
@@ -79,7 +84,7 @@ public class HttpRequest extends AsyncTask<String, Long, Boolean> {
                 RequestBody reqBody = RequestBody.create(jsonInput.toString(),JSON);
 
                 Request request = new Request.Builder()
-                        .url("http://101.101.217.202:9000/fall/user/" + mContext.getString(R.string.user_id) + "/alarm")
+                        .url("http://101.101.217.202:9000/fall/user/alarm")
                         .post(reqBody)
                         .build();
 
@@ -94,6 +99,7 @@ public class HttpRequest extends AsyncTask<String, Long, Boolean> {
                 System.err.println(e.toString());
             }
         }
+
 
         return false;
     }

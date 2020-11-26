@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
@@ -15,6 +16,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.Gravity;
@@ -61,6 +63,10 @@ import java.util.TimerTask;
      private static final int GPS_ENABLE_REQUEST_CODE = 2001;
      private static final int PERMISSIONS_REQUEST_CODE = 100;
      String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
+
+    private Intent gpsListenerIntent;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -165,10 +171,24 @@ import java.util.TimerTask;
                 startActivity(intent5);
             }
         });
+
+
+        //기본 SharedPreferences 환경과 관련된 객체를 얻어옵니다.
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        // SharedPreferences 수정을 위한 Editor 객체를 얻어옵니다.
+        editor = preferences.edit();
+        saveDate();
+
+
+        gpsListenerIntent = new Intent(getApplicationContext(),GPSListener.class);
+        startService(gpsListenerIntent);
     }
 
-
-
+    public void saveDate(){
+        editor.putString("home_latitude","37.4580381");
+        editor.putString("home_longitude","127.0182252");
+        editor.apply();
+    }
 
     @Override
     public void onStart() {
@@ -238,6 +258,9 @@ import java.util.TimerTask;
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if(gpsListenerIntent!=null){
+            stopService(gpsListenerIntent);
+        }
         mainStatus = false;
         Intent intent = new Intent( getApplicationContext(),ActivenessCheckService.class);
         stopService(intent);
