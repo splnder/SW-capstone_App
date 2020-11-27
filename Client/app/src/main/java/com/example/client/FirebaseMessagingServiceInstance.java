@@ -122,6 +122,14 @@ public class FirebaseMessagingServiceInstance extends FirebaseMessagingService {
             notificationTitle = "쓰러짐 알림";
             notificationBody = map.get("senderName") + "님이 쓰러졌어요.";
         }
+        else if(map.get("alarmType").equals("homein")){
+            notificationTitle = "집 들어옴 알림";
+            notificationBody = map.get("senderName") + "님이 집에 들어오셨어요.";
+        }
+        else if(map.get("alarmType").equals("homeout")){
+            notificationTitle = "집 나감 알림";
+            notificationBody = map.get("senderName") + "님이 집을 나가셨어요.";
+        }
 
 
         String channelId = getString(R.string.default_notification_channel_id);

@@ -17,6 +17,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import java.math.BigDecimal;
 
@@ -35,7 +36,9 @@ public class GPSListener extends Service implements LocationListener {
 
     private boolean isInHome = false;
 
-    private final float eventDiameter = 30;
+    private final float eventDiameter = 3;
+
+    private Location location;
 
     public GPSListener() {
     }
@@ -56,9 +59,9 @@ public class GPSListener extends Service implements LocationListener {
         homeLocation.setLatitude(Double.parseDouble(homeLatitude));
         homeLocation.setLongitude(Double.parseDouble(homeLongitude));
 
-
-        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Log.e("permission","fail");
             return START_NOT_STICKY;
         }
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
@@ -76,8 +79,8 @@ public class GPSListener extends Service implements LocationListener {
                 Log.e("onLocationChanged","in home");
                 isInHome = true;
                 //request home in alarm
-                //HttpRequest httpRequest = new HttpRequest(getApplicationContext());
-                //httpRequest.execute("homeInPost");
+                HttpRequest httpRequest = new HttpRequest(getApplicationContext());
+                httpRequest.execute("homeInPost");
             }
         }
         else{
@@ -85,8 +88,8 @@ public class GPSListener extends Service implements LocationListener {
                isInHome = false;
                Log.e("onLocationChanged","out home");
                //request home out alarm
-               //HttpRequest httpRequest = new HttpRequest(getApplicationContext());
-               //httpRequest.execute("homeOutPost");
+               HttpRequest httpRequest = new HttpRequest(getApplicationContext());
+               httpRequest.execute("homeOutPost");
             }
         }
 

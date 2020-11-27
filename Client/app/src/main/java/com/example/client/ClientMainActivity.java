@@ -79,10 +79,10 @@ import java.util.TimerTask;
         checkPermission();
 
         if (!checkLocationServicesStatus()) {
-
+            Log.e("in oncreate","checkPermdddsdsdsdission");
             showDialogForLocationServiceSetting();
         }else {
-
+            Log.e("in oncreate","checkPermission");
             checkRunTimePermission();
         }
 
