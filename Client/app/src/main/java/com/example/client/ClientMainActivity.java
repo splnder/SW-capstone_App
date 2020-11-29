@@ -1,7 +1,6 @@
  package com.example.client;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,7 +8,6 @@ import android.content.Intent;
 
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.location.LocationManager;
 
 import android.net.Uri;
@@ -19,13 +17,11 @@ import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -37,14 +33,9 @@ import androidx.core.app.ActivityCompat;
 
 import androidx.core.content.ContextCompat;
 
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -62,7 +53,7 @@ import java.util.TimerTask;
 
      private static final int GPS_ENABLE_REQUEST_CODE = 2001;
      private static final int PERMISSIONS_REQUEST_CODE = 100;
-     String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
+     String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     private Intent gpsListenerIntent;
     private SharedPreferences preferences;
@@ -74,12 +65,23 @@ import java.util.TimerTask;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_main);
 
+
+
+        if(getIntent().hasExtra("alert")){
+            Log.e("ALERT:", getIntent().getStringExtra("alert"));
+
+            Intent popIntent = new Intent(getApplicationContext(),POPActivity.class);
+            popIntent.putExtra("alert",getIntent().getStringExtra("alert"));
+            startActivityForResult(popIntent, 1);
+        }
+
         mainStatus = true;
         ignoreBatteryOptimization();
         checkPermission();
+        checkCameraPermission();
 
         if (!checkLocationServicesStatus()) {
-            Log.e("in oncreate","checkPermdddsdsdsdission");
+            Log.e("in oncreate","checkPermission");
             showDialogForLocationServiceSetting();
         }else {
             Log.e("in oncreate","checkPermission");
@@ -87,17 +89,13 @@ import java.util.TimerTask;
         }
 
 
+
         Intent activeIntent = new Intent(getApplicationContext(),ActivenessCheckService.class);
         startService(activeIntent);
-        Log.e("error","165161656156165156165156");
 
 
 
-        if(getIntent().hasExtra("alert")){
-            Log.e("error", getIntent().getStringExtra("alert"));
-            Intent popIntent = new Intent(getApplicationContext(),POPActivity.class);
-            startActivityForResult(popIntent, 1);
-        }
+
 
 
 
@@ -121,8 +119,8 @@ import java.util.TimerTask;
                 });
 
 
-        Intent intent = new Intent(ClientMainActivity.this, DetectFall.class);
-        startService(intent);
+        Intent fallIntent = new Intent(ClientMainActivity.this, FalldownDetect.class);
+        startService(fallIntent);
 
         Timer timer = new Timer();
 
@@ -291,6 +289,17 @@ import java.util.TimerTask;
         }
     }
 
+    public void checkCameraPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                Log.d("camera", "권한 설정 완료");
+            } else {
+                Log.d("camera", "권한 설정 요청");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            }
+        }
+    }
+
     @TargetApi(Build.VERSION_CODES.M)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -391,16 +400,10 @@ import java.util.TimerTask;
                  // 3-2. 요청을 진행하기 전에 사용자가에게 퍼미션이 필요한 이유를 설명해줄 필요가 있습니다.
                  Toast.makeText(ClientMainActivity.this, "이 앱을 실행하려면 위치 접근 권한이 필요합니다.", Toast.LENGTH_LONG).show();
                  // 3-3. 사용자게에 퍼미션 요청을 합니다. 요청 결과는 onRequestPermissionResult에서 수신됩니다.
-                 ActivityCompat.requestPermissions(ClientMainActivity.this, REQUIRED_PERMISSIONS,
-                         PERMISSIONS_REQUEST_CODE);
-
-
-             } else {
-                 // 4-1. 사용자가 퍼미션 거부를 한 적이 없는 경우에는 퍼미션 요청을 바로 합니다.
-                 // 요청 결과는 onRequestPermissionResult에서 수신됩니다.
-                 ActivityCompat.requestPermissions(ClientMainActivity.this, REQUIRED_PERMISSIONS,
-                         PERMISSIONS_REQUEST_CODE);
              }
+             // 4-1. 사용자가 퍼미션 거부를 한 적이 없는 경우에는 퍼미션 요청을 바로 합니다.
+             // 요청 결과는 onRequestPermissionResult에서 수신됩니다.
+             ActivityCompat.requestPermissions(ClientMainActivity.this, REQUIRED_PERMISSIONS, PERMISSIONS_REQUEST_CODE);
 
          }
 
@@ -442,4 +445,18 @@ import java.util.TimerTask;
 
 
 
+    public void mbonk(View v){
+
+        Toast.makeText(this, "CALL CAMERA", Toast.LENGTH_SHORT).show();
+        Log.e("CAMERA", "CALL CAMERA" + 1);
+        new Thread(new Runnable() {
+            @Override public void run() {
+                Intent cameraIntent = new Intent(getApplicationContext(), CameraManager.class);
+                startService(cameraIntent);
+            }
+        }).start();
     }
+
+
+
+}

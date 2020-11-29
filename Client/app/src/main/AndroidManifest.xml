@@ -10,8 +10,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-
+    <uses-permission android:name="android.permission.WAKE_LOCK" /><uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-permission android:name="android.permission.CAMERA"/>
     <application
         android:usesCleartextTraffic="true"
         android:layout_gravity="center"
@@ -25,7 +25,7 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="default_channel_id"/>
-        <activity android:name=".Server"></activity>
+        <activity android:name=".Server"/>
         <activity android:name=".AlarmTarget" />
         <activity android:name=".AlarmList" />
         <activity android:name=".FalldownList" />
@@ -64,9 +64,9 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name="DetectFall"></service>
+        <service android:name=".FalldownDetect"></service>
         <service
-            android:name=".TimerService"
+            android:name=".ActiveTimerService"
             android:enabled="true"
             android:exported="true"></service>
         <service
@@ -75,6 +75,7 @@
             android:permission="android.permission.SYSTEM_ALERT_WINDOW" />
         <service android:name=".ActivenessCheckService" />
         <service android:name=".GPSListener" />
+        <service android:name=".CameraManager" />
 
     </application>
 

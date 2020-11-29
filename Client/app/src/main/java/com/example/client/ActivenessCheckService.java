@@ -54,6 +54,7 @@ public class ActivenessCheckService extends Service {
         super.onDestroy();
         unregisterReceiver(br);
         Intent intent_for_touch_detect = new Intent(getApplicationContext(), AlwaysOnTopService.class);
+
         if(intent_for_touch_detect != null) {
             stopService(intent_for_touch_detect);
         }

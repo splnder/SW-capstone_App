@@ -73,7 +73,7 @@ public class GPSListener extends Service implements LocationListener {
     public void onLocationChanged(@NonNull Location location) {
         location.getProvider();
         // calculate distance
-        Log.e("onLocationChanged",Double.toString(homeLocation.distanceTo(location)));
+        //Log.e("onLocationChanged",Double.toString(homeLocation.distanceTo(location)));
         if(homeLocation.distanceTo(location)<eventDiameter){//in home
             if(!isInHome){
                 Log.e("onLocationChanged","in home");

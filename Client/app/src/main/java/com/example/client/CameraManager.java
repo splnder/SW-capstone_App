@@ -1,84 +1,42 @@
 package com.example.client;
 
-import android.app.Activity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.SurfaceTexture;
-import android.hardware.Camera;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.Window;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.hardware.Camera;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.TimerTask;
 
-public class AlertActivity extends Activity {
-    private static final String NONACTIVE_MSG = "활동 없음";
-    private static final String FALLDOWN_MSG = "쓰러짐";
-    private AlertActivity popup = this;
-    Server server = new Server();
+import android.app.Service;
+import android.os.IBinder;
 
+public class CameraManager extends  Service {
+
+    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-
-
-        super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.alert_view);
-        final TextView alertInfo = (TextView)findViewById(R.id.alertText);
-
-        if(getIntent().getStringExtra("alert").equals("activePost")){
-            alertInfo.setText(NONACTIVE_MSG);
-        }
-        else{
-            alertInfo.setText(FALLDOWN_MSG);
-        }
-
-        new Thread(new Runnable() {
-            @Override public void run() {
-                Intent intent = new Intent(getApplicationContext(), Server.class);
-                intent.putExtra(getIntent().getStringExtra("alert"),"true");
-                startActivity(intent);
-            }
-        }).start();
-
-    }
-
-
-    //확인 버튼 클릭
-    public void mOnClose(View v){
-        
-        //촬영 후 데이터 전송
-        openCam();
-
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        //바깥레이어 클릭시 안닫히게
-        if(event.getAction()== MotionEvent.ACTION_OUTSIDE){
-            return false;
-        }
-        return true;
+    public void onCreate() {
+        super.onCreate();
     }
 
     @Override
-    public void onBackPressed() {
-        //안드로이드 백버튼 막기
-        return;
-    }
+    public int onStartCommand(Intent intent, int flags, int startId) {
 
-    private void openCam(){
+
         Camera camera = null;
         Camera.CameraInfo camInfo = new Camera.CameraInfo();
 
@@ -135,8 +93,6 @@ public class AlertActivity extends Activity {
                                 Log.e("ERROR", "send failed");
                             }
                             camera.release();
-                            popup.finish();
-                            //콜백함수 끝나고 팝업창 닫기
                         }
                     });
 
@@ -158,9 +114,7 @@ public class AlertActivity extends Activity {
             //Log.e("ERROR", "cam unavailable");
             //e.printStackTrace();
         }
-
-
-
+        return super.onStartCommand(intent, flags, startId);
     }
 
 }

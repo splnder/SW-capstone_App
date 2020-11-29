@@ -1,6 +1,4 @@
 package com.example.client;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Service;
 import android.content.Context;
@@ -9,18 +7,14 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.TextView;
-import android.view.MotionEvent;
-import android.view.View;
 
 
 import static java.lang.Math.abs;
 
 
-public class DetectFall extends Service implements SensorEventListener {
+public class FalldownDetect extends Service implements SensorEventListener {
 
     private static final String TAG = "DetectFall";
 
@@ -69,8 +63,8 @@ public class DetectFall extends Service implements SensorEventListener {
         mGgyroSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        sensorManager.registerListener(DetectFall.this,accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-        mSensorManager.registerListener(DetectFall.this, mGgyroSensor,SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(FalldownDetect.this,accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        mSensorManager.registerListener(FalldownDetect.this, mGgyroSensor,SensorManager.SENSOR_DELAY_NORMAL);
 
         Log.d(TAG, "onCreate: Registered accelormeter listener");
 
@@ -134,9 +128,17 @@ public class DetectFall extends Service implements SensorEventListener {
                     //api request
                     new Thread(new Runnable() {
                         @Override public void run() {
+
+                            Intent intent = new Intent(getApplicationContext(),ClientMainActivity.class);
+                            intent.putExtra("alert","fallPost");
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            
+                            /* 취소 가능창 먼저 띄우게끔. 이건 보류
                             Intent intent = new Intent(getApplicationContext(), Server.class);
                             intent.putExtra("fallPost","true");
                             startActivity(intent);
+                            */
                         }
                     }).start();
 

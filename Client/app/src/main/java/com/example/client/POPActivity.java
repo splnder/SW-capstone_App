@@ -7,12 +7,15 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.widget.TextView;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class POPActivity extends Activity {
-    private static final int ALERT_DELAY_TIME = 10; //메세지 확인 누르기까지 기다리는 시간(초 단위)
+    private static final String NONACTIVE_MSG = "활동없음이\n감지되었습니다";
+    private static final String FALLDOWN_MSG = "쓰러짐이\n감지되었습니다";
+    private static final int ALERT_DELAY_TIME = 3; //메세지 확인 누르기까지 기다리는 시간(초 단위)
     static int counter;
     Timer count = new Timer();
     TimerTask limit;
@@ -20,23 +23,32 @@ public class POPActivity extends Activity {
     @Override
 
     public void onCreate(Bundle savedInstanceState) {
-        counter=0;
-
         super.onCreate(savedInstanceState);
-        //타이틀바 없애기
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.pop_view);
+
+        counter=0;
+        final TextView alertInfo = (TextView)findViewById(R.id.alertText);
+
+        if(getIntent().getStringExtra("alert").equals("activePost")){
+            alertInfo.setText(NONACTIVE_MSG);
+        }
+        else{
+            alertInfo.setText(FALLDOWN_MSG);
+        }
 
         limit  = new TimerTask(){
             @Override
             public void run(){
-                Log.e("알람 보내기", counter + "초");
+                Log.e(getApplicationContext() + "알람 보내기", counter + "초");
                 counter++;
                 if(counter == ALERT_DELAY_TIME) {
                     counter=0;
                     this.cancel();
-                    Intent popIntent = new Intent(getApplicationContext(),AlertActivity.class);
-                    startActivity(popIntent);
+                    Intent alertIntent = new Intent(getApplicationContext(),AlertActivity.class);
+                    alertIntent.putExtra("alert",getIntent().getStringExtra("alert"));
+                    startActivity(alertIntent);
 
                 }
 
@@ -56,13 +68,13 @@ public class POPActivity extends Activity {
         intent.putExtra("result", "Close Popup");
         setResult(RESULT_OK, intent);
 
-        //액티비티(팝업) 닫기
+        //팝업 닫기
         finish();
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        //바깥레이어 클릭시 안닫히게
+        //창 바깥 클릭시 닫히지 않도록
         if(event.getAction()== MotionEvent.ACTION_OUTSIDE){
             return false;
         }
@@ -71,7 +83,7 @@ public class POPActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        //안드로이드 백버튼 막기
+        //뒤로가기 버튼 막기
         return;
     }
 

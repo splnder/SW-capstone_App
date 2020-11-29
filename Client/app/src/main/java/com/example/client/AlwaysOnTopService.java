@@ -58,7 +58,7 @@ public class AlwaysOnTopService extends Service {
                 */
 
 
-                Intent timerIntent = new Intent(getApplicationContext(), com.example.client.TimerService.class);
+                Intent timerIntent = new Intent(getApplicationContext(), ActiveTimerService.class);
                 timerIntent.putExtra("reset", 1);
                 startService(timerIntent);
 
@@ -86,4 +86,5 @@ public class AlwaysOnTopService extends Service {
             wm = null;
         }
     }
+
 }
