@@ -127,10 +127,37 @@
             android:layout_height="wrap_content"
             android:id="@+id/bonk"
             motion:layout_constraintTop_toBottomOf="@+id/toolbar"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="40dp"
             motion:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="161dp"
-            android:layout_marginLeft="161dp" />
+            android:layout_marginStart="88dp"
+            android:layout_marginLeft="88dp" />
+        <Constraint
+            android:layout_height="19dp"
+            android:layout_width="0dp"
+            android:id="@+id/textView12"
+            motion:layout_constraintTop_toBottomOf="@+id/bonk"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="52dp"
+            android:layout_marginLeft="176dp"
+            android:layout_marginStart="176dp" />
+        <Constraint
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/SPtest"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/toolbar"
+            android:layout_marginTop="136dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp" />
+        <Constraint
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/bonk2"
+            motion:layout_constraintTop_toBottomOf="@+id/toolbar"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="88dp"
+            android:layout_marginRight="88dp"
+            android:layout_marginTop="40dp" />
     </ConstraintSet>
 
 
