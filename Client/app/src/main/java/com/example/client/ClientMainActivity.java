@@ -21,6 +21,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -64,6 +66,20 @@ import java.util.TimerTask;
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_main);
+
+        WebView myWebView = new WebView(this);
+        setContentView(myWebView);
+
+        myWebView.getSettings().setJavaScriptEnabled(true);
+        myWebView.setWebViewClient(new WebViewClient(){
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url){
+                view.loadUrl(url);
+                return true;
+            }
+        });
+        myWebView.loadUrl("http://101.101.217.202");
+
 
 
 
@@ -140,6 +156,7 @@ import java.util.TimerTask;
         button2 = findViewById(R.id.button2);
         button3 = findViewById(R.id.button3);
 
+        /*
         button1.setOnClickListener(new View.OnClickListener() // 회원가입 버튼 클릭 시
         {
             @Override
@@ -169,6 +186,8 @@ import java.util.TimerTask;
                 startActivity(intent5);
             }
         });
+
+         */
 
 
         //기본 SharedPreferences 환경과 관련된 객체를 얻어옵니다.
