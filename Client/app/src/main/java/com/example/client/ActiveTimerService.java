@@ -10,8 +10,8 @@ import android.util.Log;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class TimerService extends Service {
-    private static final int ALERT_DELAY_TIME = 10; //메세지 띄우기 전까지의 시간 (초 단위)
+public class ActiveTimerService extends Service {
+    private static final int ALERT_DELAY_TIME = 3; //메세지 띄우기 전까지의 시간 (초 단위)
     private static final String WAKELOCK_TAG = "------------------------:wakelock";
     static int counter;
 
@@ -27,7 +27,7 @@ public class TimerService extends Service {
         limit  = new TimerTask(){
             @Override
             public void run(){
-                Log.e("카운트중", counter + "초");
+                Log.e(getApplicationContext() + "카운트중", counter + "초");
                 counter++;
                 if(counter == ALERT_DELAY_TIME) {
                     counter=0;
@@ -40,7 +40,7 @@ public class TimerService extends Service {
 
                     this.cancel();
                     Intent intent = new Intent(getApplicationContext(),ClientMainActivity.class);
-                    intent.putExtra("alert","nonActive");
+                    intent.putExtra("alert","activePost");
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
                     startActivity(intent);
@@ -56,7 +56,6 @@ public class TimerService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
         throw new UnsupportedOperationException("Not yet implemented");
     }
 }

@@ -1,19 +1,11 @@
 package com.example.client;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
-
-import com.google.firebase.messaging.RemoteMessage;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class AlarmPopupActivity extends Activity {
 
@@ -30,11 +22,11 @@ public class AlarmPopupActivity extends Activity {
 
         if (fms.remoteMessage != null ) {
 
-            Intent AlarmPopupIntent = new Intent(getApplicationContext(),AlertActivity.class);
+            Intent AlarmPopupIntent = new Intent(getApplicationContext(), AlertActivity.class);
             startActivity(AlarmPopupIntent);;
         }
 
-        Intent AlarmPopupIntent = new Intent(getApplicationContext(),AlertActivity.class);
+        Intent AlarmPopupIntent = new Intent(getApplicationContext(), AlertActivity.class);
         startActivity(AlarmPopupIntent);
     }
 

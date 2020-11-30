@@ -70,13 +70,12 @@ public class FirebaseMessagingServiceInstance extends FirebaseMessagingService {
             JSONObject jsonInput = new JSONObject();
 
             jsonInput.put("token",token);
-            jsonInput.put("userId",R.string.user_id);
+            jsonInput.put("userId",getApplication().getString(R.string.user_id));
 
             MediaType JSON = MediaType.get("application/json; charset=utf-8");
             RequestBody reqBody = RequestBody.create(jsonInput.toString(),JSON);
-
             Request request = new Request.Builder()
-                    .url("http://101.101.217.202:9000/user/20/has-app/true")
+                    .url("http://101.101.217.202:9000/user/has-app/true")
                     .post(reqBody)
                     .build();
 
@@ -124,6 +123,20 @@ public class FirebaseMessagingServiceInstance extends FirebaseMessagingService {
         else if(map.get("alarmType").equals("fall")){
             notificationTitle = "쓰러짐 알림";
             notificationBody = map.get("senderName") + "님이 쓰러졌어요.";
+
+            FirebaseAlarmTitle = notificationTitle;
+            FirebaseAlarmBody =  notificationBody;
+        }
+        else if(map.get("alarmType").equals("homein")){
+            notificationTitle = "집 들어옴 알림";
+            notificationBody = map.get("senderName") + "님이 집에 들어오셨어요.";
+
+            FirebaseAlarmTitle = notificationTitle;
+            FirebaseAlarmBody =  notificationBody;
+        }
+        else if(map.get("alarmType").equals("homeout")){
+            notificationTitle = "집 나감 알림";
+            notificationBody = map.get("senderName") + "님이 집을 나가셨어요.";
 
             FirebaseAlarmTitle = notificationTitle;
             FirebaseAlarmBody =  notificationBody;
