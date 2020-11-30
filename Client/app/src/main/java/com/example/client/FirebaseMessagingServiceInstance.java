@@ -45,8 +45,9 @@ public class FirebaseMessagingServiceInstance extends FirebaseMessagingService {
     public static final MediaType JSON
             = MediaType.get("application/json; charset=utf-8");
 
-    public String FirebaseAlarmMessage = "";
-    public String FirebaseAlarmMessageCheck = "";
+    public String FirebaseAlarmTitle = "";
+    public String FirebaseAlarmBody = "";
+    public RemoteMessage remoteMessage;
 
     @Override
     public void onNewToken(String token) {
@@ -99,8 +100,6 @@ public class FirebaseMessagingServiceInstance extends FirebaseMessagingService {
             Log.d("response",remoteMessage.getData().toString());
             sendNotification(remoteMessage.getData());
 
-            FirebaseAlarmMessage = remoteMessage.getData().toString();
-
         }
         Log.d("response","before out onMessageReceived");
     }
@@ -117,18 +116,30 @@ public class FirebaseMessagingServiceInstance extends FirebaseMessagingService {
         if(map.get("alarmType").equals("nonactive")){
             notificationTitle = "활동 미감지 알림";
             notificationBody = map.get("senderName") + "님의 활동이 감지되지 않아요.";
+
+            FirebaseAlarmTitle = notificationTitle;
+            FirebaseAlarmBody =  notificationBody;
         }
         else if(map.get("alarmType").equals("fall")){
             notificationTitle = "쓰러짐 알림";
             notificationBody = map.get("senderName") + "님이 쓰러졌어요.";
+
+            FirebaseAlarmTitle = notificationTitle;
+            FirebaseAlarmBody =  notificationBody;
         }
         else if(map.get("alarmType").equals("homein")){
             notificationTitle = "집 들어옴 알림";
             notificationBody = map.get("senderName") + "님이 집에 들어오셨어요.";
+
+            FirebaseAlarmTitle = notificationTitle;
+            FirebaseAlarmBody =  notificationBody;
         }
         else if(map.get("alarmType").equals("homeout")){
             notificationTitle = "집 나감 알림";
             notificationBody = map.get("senderName") + "님이 집을 나가셨어요.";
+
+            FirebaseAlarmTitle = notificationTitle;
+            FirebaseAlarmBody =  notificationBody;
         }
 
 

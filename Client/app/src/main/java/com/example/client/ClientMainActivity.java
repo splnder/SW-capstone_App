@@ -49,9 +49,7 @@ import java.util.TimerTask;
     Toolbar toolbar;
     private Button button1, button2, button3;
     FirebaseMessagingServiceInstance FMS = new FirebaseMessagingServiceInstance();
-    Server server = new Server();
-    AlarmList alarmlist = new AlarmList();
-    public android.view.View View;
+
 
      private static final int GPS_ENABLE_REQUEST_CODE = 2001;
      private static final int PERMISSIONS_REQUEST_CODE = 100;
@@ -130,17 +128,6 @@ import java.util.TimerTask;
 
         Intent fallIntent = new Intent(ClientMainActivity.this, FalldownDetect.class);
         startService(fallIntent);
-
-        Timer timer = new Timer();
-
-        TimerTask TT = new TimerTask() {
-            @Override
-            public void run() {
-                Popup1(View);
-                Popup2(View);
-            }
-        };
-        timer.schedule(TT, 0, 1000);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -221,46 +208,12 @@ import java.util.TimerTask;
                 break;
 
             case R.id.item2:
-                Intent intent2 = new Intent(ClientMainActivity.this, AlarmList.class);
+                Intent intent2 = new Intent(ClientMainActivity.this, AlarmListActivity.class);
                 startActivity(intent2);
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
-
-    public void Popup1(View view) {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-
-        dialog.setTitle("알 림");
-        dialog.setMessage(server.alarmMessage);
-        dialog.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getApplicationContext(), "확인", Toast.LENGTH_SHORT).show();
-            }
-        });
-        if (server.alarmMessage != server.alarmMessageCheck) {
-            dialog.show();
-            server.alarmMessageCheck = server.alarmMessage;
-        }
-    }
-
-    public void Popup2(View view)
-    {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-
-        dialog.setTitle("알 림");
-        dialog.setMessage(FMS.FirebaseAlarmMessage);
-        dialog.setPositiveButton("확인",new DialogInterface.OnClickListener(){
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getApplicationContext(), "확인", Toast.LENGTH_SHORT).show();
-            }
-        });
-        if(FMS.FirebaseAlarmMessage != FMS.FirebaseAlarmMessageCheck) {
-            dialog.show();
-            FMS.FirebaseAlarmMessageCheck = FMS.FirebaseAlarmMessage;
-        }
-    }
-
 
     @Override
     protected void onDestroy() {
