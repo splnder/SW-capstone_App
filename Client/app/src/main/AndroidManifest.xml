@@ -65,6 +65,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
         <activity android:name=".Tlogin"/>
         <activity
             android:name=".AlarmPopupActivity"
@@ -73,6 +74,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+=======
+>>>>>>> parent of 71131db... add session
 
         <service
             android:name=".FirebaseMessagingServiceInstance"
