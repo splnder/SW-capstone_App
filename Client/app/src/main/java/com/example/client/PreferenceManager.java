@@ -20,13 +20,11 @@ public class PreferenceManager {
     private static final float DEFAULT_VALUE_FLOAT = -1F;
 
 
-    private static SharedPreferences getPreferences(Context context) {
+    static SharedPreferences getPreferences(Context context) {
 
         return context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
 
     }
-
-
 
     public static void setString(Context context, String key, String value) {
 
