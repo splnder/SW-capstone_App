@@ -3,4 +3,8 @@
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <string name="user_id">20</string>
     <string name="bonk">촬영</string>
+    <string name="test">촬영test</string>
+    <string name="Ltest">로그인test</string>
+    <string name="idField">아이디</string>
+    <string name="startButton">Outlined button</string>
 </resources>

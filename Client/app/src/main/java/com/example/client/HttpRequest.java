@@ -139,7 +139,7 @@ public class HttpRequest extends AsyncTask<String, Long, Boolean> {
                     Log.e("LOGIN", latitude +"/"+ longitude);
 
                     Response response = client.newCall(request).execute();
-
+                    Log.e("responseresponseresponseresponse", String.valueOf(response));
                     List<String> cookieList = response.headers().values("Set-Cookie");
                     if(cookieList == null){
                         Log.e("--------------------------------------", "LOGIN FAILED");

@@ -96,13 +96,6 @@ import java.util.TimerTask;
 
 
 
-        final TextView testtext = (TextView)findViewById(R.id.SPtest);
-        String text = com.example.client.PreferenceManager.getString(getApplicationContext(), "sessionID");
-        if (text.equals("")) {
-            text = "0";
-        }
-
-        testtext.setText(text);
 
 
 
@@ -128,43 +121,6 @@ import java.util.TimerTask;
 
         Intent fallIntent = new Intent(ClientMainActivity.this, FalldownDetect.class);
         startService(fallIntent);
-
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        button1 = findViewById(R.id.button1);
-        button2 = findViewById(R.id.button2);
-        button3 = findViewById(R.id.button3);
-
-        button1.setOnClickListener(new View.OnClickListener() // 회원가입 버튼 클릭 시
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Intent intent3 = new Intent(ClientMainActivity.this, ActivityList.class);
-                startActivity(intent3);
-            }
-        });
-
-        button2.setOnClickListener(new View.OnClickListener() // 회원가입 버튼 클릭 시
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Intent intent4 = new Intent(ClientMainActivity.this, FalldownList.class);
-                startActivity(intent4);
-            }
-        });
-
-        button3.setOnClickListener(new View.OnClickListener() // 회원가입 버튼 클릭 시
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Intent intent5 = new Intent(ClientMainActivity.this, GPSList.class);
-                startActivity(intent5);
-            }
-        });
 
 
         //기본 SharedPreferences 환경과 관련된 객체를 얻어옵니다.
@@ -425,10 +381,13 @@ import java.util.TimerTask;
          Intent loginIntent = new Intent(getApplicationContext(),Tlogin.class);
          startActivity(loginIntent);
 
-         final TextView testtext = (TextView)findViewById(R.id.SPtest);
-         String text = com.example.client.PreferenceManager.getString(getApplicationContext(), "sessionID");
-         testtext.setText(text);
+     }
+     public void login(View v){
+
 
      }
+     public void startCheck(View v){
 
+
+     }
 }
