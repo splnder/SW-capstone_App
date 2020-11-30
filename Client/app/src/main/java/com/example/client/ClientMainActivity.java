@@ -2,7 +2,6 @@
 
 import android.Manifest;
 import android.annotation.TargetApi;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 
@@ -22,6 +21,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -31,6 +31,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
+import android.content.Context;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -40,8 +41,9 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import java.util.Timer;
 import java.util.TimerTask;
 
+
  public class ClientMainActivity extends AppCompatActivity
-{
+ {
     private static final int ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE = 1;
     boolean mainStatus = false;
     Toolbar toolbar;
@@ -58,6 +60,7 @@ import java.util.TimerTask;
     private Intent gpsListenerIntent;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -95,7 +98,13 @@ import java.util.TimerTask;
 
 
 
+        final TextView testtext = (TextView)findViewById(R.id.SPtest);
+        String text = com.example.client.PreferenceManager.getString(getApplicationContext(), "sessionID");
+        if (text.equals("")) {
+            text = "0";
+        }
 
+        testtext.setText(text);
 
 
 
@@ -457,6 +466,16 @@ import java.util.TimerTask;
         }).start();
     }
 
+     public void mbonk2(View v){
 
+         Toast.makeText(this, "CALL LOGIN", Toast.LENGTH_SHORT).show();
+         Intent loginIntent = new Intent(getApplicationContext(),Tlogin.class);
+         startActivity(loginIntent);
+
+         final TextView testtext = (TextView)findViewById(R.id.SPtest);
+         String text = com.example.client.PreferenceManager.getString(getApplicationContext(), "sessionID");
+         testtext.setText(text);
+
+     }
 
 }

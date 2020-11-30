@@ -39,7 +39,7 @@
     <Button
         android:id="@+id/button2"
         style="?android:attr/borderlessButtonStyle"
-        android:layout_width="250dp"
+        android:layout_width="80dp"
         android:layout_height="250dp"
         android:background="@drawable/bg_button2"
         android:text=" 쓰 러 짐 감 지     목 록"
@@ -89,13 +89,31 @@
 
     <Button
         android:id="@+id/bonk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="#111111"
         android:onClick="mbonk"
         android:text="촬영test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="161dp"
         tools:layout_editor_absoluteY="168dp" />
+
+    <Button
+        android:id="@+id/bonk2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#111111"
+        android:onClick="mbonk2"
+        android:text="로그인test"
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="168dp" />
+
+    <TextView
+        android:id="@+id/SPtest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="169dp"
+        tools:layout_editor_absoluteY="169dp" />
 
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

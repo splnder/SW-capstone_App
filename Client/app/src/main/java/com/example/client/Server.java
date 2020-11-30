@@ -39,6 +39,10 @@ public class Server extends Activity{
             fallPost(gpsTracker.getLatitude()+"",gpsTracker.getLongitude()+"");
             finish();
         }
+        else if(getIntent().hasExtra("login")){
+            loginPost(getIntent().getStringExtra("id"),getIntent().getStringExtra("pw"));
+            finish();
+        }
         this.onDestroy();
     }
 
@@ -46,12 +50,16 @@ public class Server extends Activity{
     public void activePost(String latitude, String longitude) {
         HttpRequest httpRequest = new HttpRequest(getApplicationContext());
         httpRequest.execute("activePost",latitude,longitude);
-
     }
 
     public void fallPost(String latitude, String longitude) {
         HttpRequest httpRequest = new HttpRequest(getApplicationContext());
         httpRequest.execute("fallPost",latitude,longitude);
+    }
+
+    public void loginPost(String id, String pw) {
+        HttpRequest httpRequest = new HttpRequest(getApplicationContext());
+        httpRequest.execute("login",id,pw);
     }
 
 }
