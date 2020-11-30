@@ -24,18 +24,13 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 
-public class AlarmList extends AppCompatActivity {
+public class AlarmListActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     private ListView listview;
     private ArrayAdapter adapter;
-    private static final String TAG = AlarmList.class.getSimpleName();
+    private static final String TAG = AlarmListActivity.class.getSimpleName();
     private static List<GetAlarm> alarmList = new ArrayList<>();
-
-    public static Context mContext;
-    public AlarmList(Context context) {
-        mContext = context;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +42,7 @@ public class AlarmList extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        new HttpAsyncTask().execute("http://101.101.217.202:9000/user/" + mContext.getString(R.string.user_id) + "/alarm");
+        new HttpAsyncTask().execute("http://101.101.217.202:9000/user/20/alarm");
     }
 
     private static class HttpAsyncTask extends AsyncTask<String, Void, String> {

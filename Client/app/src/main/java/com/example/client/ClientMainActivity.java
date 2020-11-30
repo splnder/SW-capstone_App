@@ -199,7 +199,7 @@ import java.util.TimerTask;
                 break;
 
             case R.id.item2:
-                Intent intent2 = new Intent(ClientMainActivity.this, AlarmList.class);
+                Intent intent2 = new Intent(ClientMainActivity.this, AlarmListActivity.class);
                 startActivity(intent2);
                 break;
         }
