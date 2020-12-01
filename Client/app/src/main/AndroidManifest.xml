@@ -34,7 +34,10 @@
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="default_channel_id" />
 
+        <activity android:name=".SenderReceiverActivity" />
         <activity android:name=".Server" />
+        <activity android:name=".SettingActivity" />
+        <activity android:name=".WebViewActivity" />
         <activity android:name=".AlarmListActivity"/>
         <activity android:name=".AlarmTarget" />
         <activity android:name=".FalldownList" />

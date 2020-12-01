@@ -93,7 +93,7 @@ public class OptionActivity extends AppCompatActivity {
                 editor.commit();
             }
         });
-
+        /*
         button4 = findViewById(R.id.button4);
         button4.setOnClickListener(new View.OnClickListener() // 회원가입 버튼 클릭 시
         {
@@ -103,6 +103,7 @@ public class OptionActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        */
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

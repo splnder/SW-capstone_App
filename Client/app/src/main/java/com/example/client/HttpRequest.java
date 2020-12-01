@@ -17,7 +17,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class HttpRequest extends AsyncTask<String, Long, Boolean> {
+public class HttpRequest extends AsyncTask<String, Long, String> {
 
     public static Context mContext;
 
@@ -32,8 +32,49 @@ public class HttpRequest extends AsyncTask<String, Long, Boolean> {
 
 
     @Override
-    protected Boolean doInBackground(String... strings) {
-        if(strings.length == 3){
+    protected String doInBackground(String... strings) {
+        String getVal="";
+        Log.e("InHttpRequest","시작");
+        if(strings.length == 5) {
+            try{
+                String phoneNum = strings[1];
+                boolean non_active = strings[2].equals("t");
+                boolean fall_down = strings[3].equals("t");
+                boolean gps = strings[4].equals("t");
+
+
+                OkHttpClient client = new OkHttpClient();
+                JSONObject jsonInput = new JSONObject();
+                SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+                Date today = Calendar.getInstance().getTime();
+                String time = dateFormat.format(today);
+
+                jsonInput.put( "phone_number", phoneNum);
+                jsonInput.put("non_active", non_active);
+                jsonInput.put("fall_down",fall_down);
+                jsonInput.put("gps",gps);
+
+                MediaType JSON = MediaType.get("application/json; charset=utf-8");
+                RequestBody reqBody = RequestBody.create(jsonInput.toString(),JSON);
+
+                Request request = new Request.Builder()
+                        .addHeader("Cookie", PreferenceManager.getString(mContext, "sessionID"))
+                        .url("http://101.101.217.202:9000/user/set-receiver")
+                        .post(reqBody)
+                        .build();
+
+
+                Response response = client.newCall(request).execute();
+
+                Log.e("RECEIVED", String.valueOf(response));
+                getVal = response.body().toString();
+                Log.e("RECEIVED", getVal);
+
+            } catch (Exception e) {
+                System.err.println(e.toString());
+            }
+        }
+        else if(strings.length == 3){
             if(strings[0].equals("activePost")){
                 try{
                     latitude = strings[1];
@@ -61,15 +102,14 @@ public class HttpRequest extends AsyncTask<String, Long, Boolean> {
 
                     Response response = client.newCall(request).execute();
 
-                    String resStatus = response.message();
-                    String message = response.body().string();
 
+                    getVal = response.body().string();
                     Log.e("SEND", String.valueOf(request));
                     Log.e("RECEIVED", String.valueOf(response));
                     System.err.println("sessionID = " + PreferenceManager.getString(mContext, "sessionID"));
-                    System.err.println("send EventID = " + message);
+                    System.err.println("send EventID = " + getVal);
 
-                    PreferenceManager.setInt(mContext, "lastEventID",  Integer.valueOf(message));
+                    PreferenceManager.setInt(mContext, "lastEventID",  Integer.valueOf(getVal));
                 } catch (Exception e) {
                     System.err.println(e.toString());
                 }
@@ -102,14 +142,13 @@ public class HttpRequest extends AsyncTask<String, Long, Boolean> {
 
                     Response response = client.newCall(request).execute();
 
-                    String resStatus = response.message();
-                    String message = response.body().string();
 
-                    System.err.println("HTTP status = " + resStatus);
-                    System.err.println("send EventID = " + message);
+                    getVal = response.body().string();
+
+                    System.err.println("send EventID = " + getVal);
 
 
-                    PreferenceManager.setInt(mContext, "lastEventID",  Integer.valueOf(message));
+                    PreferenceManager.setInt(mContext, "lastEventID",  Integer.valueOf(getVal));
 
                 } catch (Exception e) {
                     System.err.println(e.toString());
@@ -139,16 +178,22 @@ public class HttpRequest extends AsyncTask<String, Long, Boolean> {
                     Log.e("LOGIN", latitude +"/"+ longitude);
 
                     Response response = client.newCall(request).execute();
-                    Log.e("responseresponseresponseresponse", String.valueOf(response));
+                    getVal = response.body().string();
+
+
                     List<String> cookieList = response.headers().values("Set-Cookie");
                     if(cookieList == null){
                         Log.e("--------------------------------------", "LOGIN FAILED");
-                        return false;
+                        return "-99";
                     }
+
                     String jsessionid = (cookieList .get(0).split(";"))[0];//세션 ID 얻기
                     PreferenceManager.setString(mContext, "sessionID",  jsessionid);
+
                     Log.e("HTTP STATUS", String.valueOf(response.code()));
                     Log.e("SET sessionID to", PreferenceManager.getString(mContext, "sessionID"));
+
+
                 } catch (Exception e) {
                     System.err.println(e.toString());
                 }
@@ -219,7 +264,7 @@ public class HttpRequest extends AsyncTask<String, Long, Boolean> {
             }
         }
 
-        Log.e("MESSEGE","SEND ALARM");
-        return false;
+        Log.e("GOT",getVal);
+        return getVal;
     }
 }

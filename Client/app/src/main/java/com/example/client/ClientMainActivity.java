@@ -36,6 +36,8 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.Timer;
@@ -382,9 +384,76 @@ import java.util.TimerTask;
          startActivity(loginIntent);
 
      }
-     public void login(View v){
+     public boolean login(View v){
 
+         TextInputLayout idField = findViewById(R.id.idField);
+         String id= idField.getEditText().getText().toString().trim();
 
+         TextInputLayout pwField = findViewById(R.id.pwField);
+         String pw= pwField.getEditText().getText().toString().trim();
+
+         boolean empty = false;
+         if(id.equals("")){
+             idField.setError("값이 입력되지 않았습니다");
+             empty = true;
+         }else{idField.setError(null);}
+         if(pw.equals("")) {
+             pwField.setError("값이 입력되지 않았습니다");
+             empty = true;
+         }else{pwField.setError(null);}
+         Log.w("login","로그인 하는중");
+
+         if(empty) return false;
+
+         Integer auth=-9;
+
+         try {
+
+             Log.w("앱에서 보낸값",id+", "+pw);
+
+             HttpRequest httpRequest = new HttpRequest(getApplicationContext());
+             Log.e("처리중","..............");
+             String result = httpRequest.execute("login",id,pw).get();
+
+             Log.e("받은값",result);
+             auth= Integer.valueOf(result);
+
+         } catch (Exception e) {
+             Log.e("에러",e.getMessage());
+             return false;
+         }
+
+         if(auth == 0){//피보호자
+             Log.e("대상","피보호자");
+             Intent settingIntent = new Intent(getApplicationContext(), SettingActivity.class);
+             startActivity(settingIntent);
+
+             overridePendingTransition(R.anim.horizon_exit, R.anim.none);
+         }
+
+         else if(auth ==1 || auth == 2) {//보호자, 보호센터
+             Log.e("대상","보호자, 센터");
+             Intent webViewIntent = new Intent(getApplicationContext(), WebViewActivity.class);
+             startActivity(webViewIntent);
+         }
+
+         else{
+             Log.e("에러","잘못 기입");
+
+             if(auth ==-100){
+                 Log.e("오기입","비번틀림");
+                 return false;
+             }
+             else if(auth ==-200){
+                 Log.e("오기입","아이디틀림");
+                 return false;
+             }
+             Log.e("기타","특수경우");
+             return false;
+         }
+
+         finish();
+        return true;
      }
      public void startCheck(View v){
 

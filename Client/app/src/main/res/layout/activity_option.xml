@@ -120,13 +120,13 @@
         app:layout_constraintVertical_bias="0.6" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/setSenderReceiver"
         android:layout_width="200dp"
         android:layout_height="80dp"
         android:layout_gravity="center"
-        android:background="@drawable/buttonbackground4"
         android:text="알림 대상 설정"
         android:textSize="30dp"
+        android:onClick="setSenderReceiver"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"

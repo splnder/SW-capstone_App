@@ -9,8 +9,6 @@
 
 
     <androidx.constraintlayout.motion.widget.MotionLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/motionLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,22 +18,22 @@
         >
 
 
-
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/startButton"
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:text="@string/startButton"
-            app:icon="@drawable/ic_launcher_foreground"
+            android:layout_height="200dp"
+            android:text="시작하기"
+            android:textSize="60dp"
+            android:backgroundTint="@color/colorAccent"
             app:iconSize="50dp"
-            android:onClick="startCheck"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent"
-            app:strokeColor="@color/colorPrimary"
-            app:strokeWidth="1dp" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.9" />
+
 
 
         <com.google.android.material.button.MaterialButton
@@ -43,74 +41,108 @@
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:text="@string/startButton"
-            app:icon="@drawable/ic_launcher_foreground"
-            app:iconSize="50dp"
+            android:text="로그인"
+            android:textSize="40dp"
+
             android:onClick="login"
+            app:icon="@drawable/ic_login_black_18dp"
+            app:iconSize="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.9"
+            app:layout_constraintHorizontal_bias="0.494"
             app:strokeColor="@color/colorPrimary"
-            app:strokeWidth="1dp" />
+            app:strokeWidth="4dp" />
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/idField"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:hint="@string/idField"
-
+            android:hint="아이디"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.300"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.200"
+            app:layout_constraintVertical_bias="0.4"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:errorEnabled="true"
             >
 
             <com.google.android.material.textfield.TextInputEditText
+                android:background="@color/colorTextBG"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/pwField"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="비밀번호"
+            app:endIconMode="password_toggle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.6"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:errorEnabled="true"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:inputType="textPassword"
+                android:background="@color/colorTextBG"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
         </com.google.android.material.textfield.TextInputLayout>
 
 
 
-        <com.google.android.material.button.MaterialButton
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:text="Outlined button"
-            app:icon="@drawable/ic_launcher_foreground"
-            app:iconSize="50dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.494"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.645"
-            app:strokeColor="@color/colorPrimary"
-            app:strokeWidth="1dp" />
+
+
+
+
+
 
 
         <Button
             android:id="@+id/bonk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:layout_marginEnd="16dp"
             android:background="#111111"
             android:onClick="mbonk"
             android:text="@string/test"
-            tools:layout_editor_absoluteX="161dp"
-            tools:layout_editor_absoluteY="168dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/bonk2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="27dp"
             android:background="#111111"
             android:onClick="mbonk2"
             android:text="@string/Ltest"
-            tools:layout_editor_absoluteX="161dp"
-            tools:layout_editor_absoluteY="168dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0"  />
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
 
