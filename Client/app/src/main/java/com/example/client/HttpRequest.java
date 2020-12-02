@@ -191,6 +191,12 @@ public class HttpRequest extends AsyncTask<String, Long, String> {
                         return "-99";
                     }
 
+                    for (String cookie : cookieList) {
+                        Log.e("쿠키 목록들:::::::::::::::", cookie);
+
+                    }
+
+
                     String jsessionid = (cookieList .get(0).split(";"))[0];//세션 ID 얻기
                     PreferenceManager.setString(mContext, "sessionID",  jsessionid);
                     PreferenceManager.setBoolean(mContext, "isSessionExist",  true);

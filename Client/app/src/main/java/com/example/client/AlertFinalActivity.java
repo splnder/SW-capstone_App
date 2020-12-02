@@ -13,19 +13,17 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.TimerTask;
 
-public class AlertActivity extends Activity {
+public class AlertFinalActivity extends Activity {
     private static final String NONACTIVE_MSG = "활동 없음";
     private static final String FALLDOWN_MSG = "쓰러짐";
-    private AlertActivity popup = this;
+    private AlertFinalActivity popup = this;
     private String event;
 
     private int picSize = 500;

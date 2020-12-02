@@ -43,7 +43,7 @@ public class ActiveTimerService extends Service {
                             WAKELOCK_TAG);
                     wakeLock.acquire();
 
-                    Intent popIntent = new Intent(getApplicationContext(),POPActivity.class);
+                    Intent popIntent = new Intent(getApplicationContext(), AlertChanceActivity.class);
                     popIntent.putExtra("alert","activePost");
                     popIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 

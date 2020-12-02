@@ -47,7 +47,7 @@
             android:text="로그인"
             android:textSize="40dp"
 
-            android:onClick="login"
+            android:onClick="loginOnClick"
             app:icon="@drawable/ic_login_black_18dp"
             app:iconSize="50dp"
             app:layout_constraintBottom_toBottomOf="parent"

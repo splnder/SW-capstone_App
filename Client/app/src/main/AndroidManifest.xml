@@ -11,6 +11,9 @@
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBLATE"/>
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -43,7 +46,6 @@
         <activity android:name=".FalldownList" />
         <activity android:name=".GPSList" />
         <activity android:name=".ActivityList" />
-        <activity android:name=".AlarmActivity" />
         <activity android:name=".OptionActivity" />
         <activity android:name=".ClientLoginActivity" />
         <activity android:name=".ClientLoginRegisterActivity" />
@@ -55,14 +57,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".POPActivity"
+            android:name=".AlertChanceActivity"
             android:theme="@android:style/Theme.Dialog">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".AlertActivity"
+            android:name=".AlertFinalActivity"
             android:theme="@android:style/Theme.Dialog">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />

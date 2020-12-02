@@ -22,11 +22,11 @@ public class AlarmPopupActivity extends Activity {
 
         if (fms.remoteMessage != null ) {
 
-            Intent AlarmPopupIntent = new Intent(getApplicationContext(), AlertActivity.class);
+            Intent AlarmPopupIntent = new Intent(getApplicationContext(), AlertFinalActivity.class);
             startActivity(AlarmPopupIntent);;
         }
 
-        Intent AlarmPopupIntent = new Intent(getApplicationContext(), AlertActivity.class);
+        Intent AlarmPopupIntent = new Intent(getApplicationContext(), AlertFinalActivity.class);
         startActivity(AlarmPopupIntent);
     }
 

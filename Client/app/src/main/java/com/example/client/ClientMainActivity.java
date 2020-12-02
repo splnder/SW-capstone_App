@@ -21,14 +21,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
 import android.content.Context;
@@ -36,12 +34,9 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
 
 
@@ -72,7 +67,7 @@ import java.util.concurrent.ExecutionException;
         if(getIntent().hasExtra("alert")){
             Log.e("ALERT:", getIntent().getStringExtra("alert"));
 
-            Intent popIntent = new Intent(getApplicationContext(),POPActivity.class);
+            Intent popIntent = new Intent(getApplicationContext(), AlertChanceActivity.class);
             popIntent.putExtra("alert",getIntent().getStringExtra("alert"));
             startActivityForResult(popIntent, 1);
         }
@@ -143,6 +138,7 @@ import java.util.concurrent.ExecutionException;
 
                 else if(auth ==1 || auth == 2) {//보호자, 보호센터
                     Log.e("대상","보호자, 센터");
+
                     Intent webViewIntent = new Intent(getApplicationContext(), WebViewActivity.class);
                     startActivity(webViewIntent);
                 }
@@ -407,7 +403,7 @@ import java.util.concurrent.ExecutionException;
          startActivity(loginIntent);
 
      }
-     public boolean login(View v){
+     public boolean loginOnClick(View v){
 
          TextInputLayout idField = findViewById(R.id.idField);
          String id= idField.getEditText().getText().toString().trim();
@@ -427,6 +423,18 @@ import java.util.concurrent.ExecutionException;
          Log.w("login","로그인 하는중");
 
          if(empty) return false;
+
+         return login(id,pw);
+     }
+     public boolean startCheck(View v){
+         Log.e("시작","시작");
+
+
+         return true;
+     }
+
+
+     private boolean login(String id, String pw){
 
          Integer auth=-9;
 
@@ -450,12 +458,15 @@ import java.util.concurrent.ExecutionException;
              Intent settingIntent = new Intent(getApplicationContext(), SettingActivity.class);
              startActivity(settingIntent);
 
+             finish();
              overridePendingTransition(R.anim.horizon_exit, R.anim.none);
          }
 
          else if(auth ==1 || auth == 2) {//보호자, 보호센터
              Log.e("대상","보호자, 센터");
              Intent webViewIntent = new Intent(getApplicationContext(), WebViewActivity.class);
+
+             finish();
              startActivity(webViewIntent);
          }
 
@@ -475,12 +486,6 @@ import java.util.concurrent.ExecutionException;
          }
 
          finish();
-        return true;
-     }
-     public boolean startCheck(View v){
-         Log.e("시작","시작");
-
-
          return true;
      }
 }

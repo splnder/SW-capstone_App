@@ -112,6 +112,14 @@ public class SettingActivity extends Activity {
     public void logout(View view) {
         PreferenceManager.setBoolean(getApplicationContext(), "isSessionExist", false);
         Intent loginIntent = new Intent(getApplicationContext(), ClientMainActivity.class);
+
+        actBtn.setText("꺼진");
+        fallBtn.setText("꺼진");
+        gpsBtn.setText("꺼진");
+        stopService(activeIntent);
+        stopService(fallIntent);
+        stopService(gpsIntent);
+
         startActivity(loginIntent);
         finish();
     }
