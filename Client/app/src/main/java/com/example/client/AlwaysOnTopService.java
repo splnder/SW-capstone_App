@@ -49,14 +49,6 @@ public class AlwaysOnTopService extends Service {
                 writer.writeTimeLog(getApplicationContext(),"TOUCH_DETECT");
                 Log.d("touch","in mView"+ getApplicationContext().toString());
 
-                /*
-                Intent intent = getPackageManager().getLaunchIntentForPackage("com.example.on_off_log");
-                intent.putExtra("alert","nonActive");
-                intent.addFlags(Intent.FLAG_FROM_BACKGROUND);
-
-                startActivity(intent);
-                */
-
 
                 Intent timerIntent = new Intent(getApplicationContext(), ActiveTimerService.class);
                 timerIntent.putExtra("reset", 1);

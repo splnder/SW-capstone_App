@@ -38,6 +38,7 @@ public class HttpRequest extends AsyncTask<String, Long, String> {
         Log.e("InHttpRequest","시작");
         if(strings.length == 5) {
             try{
+
                 String phoneNum = strings[1];
                 boolean non_active = strings[2].equals("t");
                 boolean fall_down = strings[3].equals("t");
@@ -67,6 +68,7 @@ public class HttpRequest extends AsyncTask<String, Long, String> {
 
                 Response response = client.newCall(request).execute();
 
+                Toast.makeText(mContext, "RECEIVED =====" + String.valueOf(response) , Toast.LENGTH_LONG).show();
                 Log.e("RECEIVED", String.valueOf(response));
                 getVal = response.body().toString();
                 Log.e("RECEIVED", getVal);

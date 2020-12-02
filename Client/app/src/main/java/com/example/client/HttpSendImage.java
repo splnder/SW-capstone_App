@@ -30,150 +30,16 @@ public class HttpSendImage {
     private static String longitude;
 
 
-    /*
-    public static void sendEvent(String... strings) {
-        if(strings.length == 3){
-            if(strings[0].equals("activePost")){
-                try{
-                    latitude = strings[1];
-                    longitude = strings[2];
-                    OkHttpClient client = new OkHttpClient();
-                    JSONObject jsonInput = new JSONObject();
-                    SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
-                    Date today = Calendar.getInstance().getTime();
-                    String time = dateFormat.format(today);
 
-                    jsonInput.put( "latitude", latitude);
-                    jsonInput.put("longitude", longitude);
-                    jsonInput.put("timestamp",time);
-                    jsonInput.put("userId",mContext.getString(R.string.user_id));
-
-                    MediaType JSON = MediaType.get("application/json; charset=utf-8");
-                    RequestBody reqBody = RequestBody.create(jsonInput.toString(),JSON);
-
-                    Request request = new Request.Builder()
-                            .url("http://101.101.217.202:9000/non-active/user/alarm")
-                            .post(reqBody)
-                            .build();
-
-                    Log.e("activePost",latitude+" "+longitude);
-
-                    Response response = client.newCall(request).execute();
-
-                    String message = response.body().string();
-
-                    System.out.println(message);
-
-                } catch (Exception e) {
-                    System.err.println(e.toString());
-                }
-            }
-            else if(strings[0].equals("fallPost")){
-                try{
-                    latitude = strings[1];
-                    longitude = strings[2];
-                    OkHttpClient client = new OkHttpClient();
-                    JSONObject jsonInput = new JSONObject();
-                    SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
-                    Date today = Calendar.getInstance().getTime();
-                    String time = dateFormat.format(today);
-
-                    jsonInput.put( "latitude", latitude);
-                    jsonInput.put("longitude", longitude);
-                    jsonInput.put("timestamp",time);
-                    jsonInput.put("userId",mContext.getString(R.string.user_id));
-
-                    MediaType JSON = MediaType.get("application/json; charset=utf-8");
-                    RequestBody reqBody = RequestBody.create(jsonInput.toString(),JSON);
-
-                    Request request = new Request.Builder()
-                            .url("http://101.101.217.202:9000/fall/user/alarm")
-                            .post(reqBody)
-                            .build();
-
-                    Log.e("activePost",latitude+" "+longitude);
-
-                    Response response = client.newCall(request).execute();
-
-                    String message = response.body().string();
-                    System.out.println(message);
-
-                } catch (Exception e) {
-                    System.err.println(e.toString());
-                }
-            }
-        }
-        else if(strings.length == 1){
-            if(strings[0].equals("homeInPost")){
-                try{
-                    OkHttpClient client = new OkHttpClient();
-                    JSONObject jsonInput = new JSONObject();
-                    SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
-                    Date today = Calendar.getInstance().getTime();
-                    String time = dateFormat.format(today);
-
-                    jsonInput.put("timestamp",time);
-                    jsonInput.put("userId",mContext.getString(R.string.user_id));
-
-                    MediaType JSON = MediaType.get("application/json; charset=utf-8");
-                    RequestBody reqBody = RequestBody.create(jsonInput.toString(),JSON);
-
-                    Request request = new Request.Builder()
-                            .url("http://101.101.217.202:9000/home-in/user/alarm")
-                            .post(reqBody)
-                            .build();
-
-                    Log.e("homeInPost",latitude+" "+longitude);
-
-                    Response response = client.newCall(request).execute();
-
-                    String message = response.body().string();
-                    System.out.println(message);
-
-                } catch (Exception e) {
-                    System.err.println(e.toString());
-                }
-            }
-            else if(strings[0].equals("homeOutPost")){
-                try{
-                    OkHttpClient client = new OkHttpClient();
-                    JSONObject jsonInput = new JSONObject();
-                    SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
-                    Date today = Calendar.getInstance().getTime();
-                    String time = dateFormat.format(today);
-
-                    jsonInput.put("timestamp",time);
-                    jsonInput.put("userId",mContext.getString(R.string.user_id));
-
-                    MediaType JSON = MediaType.get("application/json; charset=utf-8");
-                    RequestBody reqBody = RequestBody.create(jsonInput.toString(),JSON);
-
-                    Request request = new Request.Builder()
-                            .url("http://101.101.217.202:9000/home-out/user/alarm")
-                            .post(reqBody)
-                            .build();
-
-                    Log.e("homeOutPost",latitude+" "+longitude);
-
-                    Response response = client.newCall(request).execute();
-
-                    String message = response.body().string();
-                    System.out.println(message);
-
-                } catch (Exception e) {
-                    System.err.println(e.toString());
-                }
-            }
-        }
-    }
-    */
-
-    public static void sendImage(File file, Context mContext){
+    public static void sendImage(File file, String event, Context mContext){
 
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("files", file.getName(), RequestBody.create(MultipartBody.FORM, file))
+                .addFormDataPart("tag", event)
                 .build();
+
+        Log.d("sendImage : ", "READY TO SEND");
 
         Request request = new Request.Builder()
                 .url("http://101.101.217.202:9000/test/postImage")
@@ -186,8 +52,9 @@ public class HttpSendImage {
                 e.printStackTrace();
             }
             @Override public void onResponse(Call call, Response response) throws IOException {
-                Log.d("TEST : ", response.body().string());
+
             }
         });
+
     }
 }

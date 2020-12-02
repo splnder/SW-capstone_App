@@ -27,6 +27,9 @@ public class ActivenessCheckService extends Service {
         Toast.makeText(getApplicationContext(), "활동감지가 활성화되었습니다.", Toast.LENGTH_LONG).show();
 
 
+        Intent timerIntent = new Intent(getApplicationContext(), ActiveTimerService.class);
+        startService(timerIntent);
+
         br = new com.example.client.ScreenOnOffBroadcastReceiver();
 
         IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
@@ -54,7 +57,11 @@ public class ActivenessCheckService extends Service {
     @Override
     public void onDestroy() {
         Toast.makeText(getApplicationContext(), "활동감지가 비활성화되었습니다.", Toast.LENGTH_LONG).show();
-        
+
+
+        Intent timerIntent = new Intent(getApplicationContext(), ActiveTimerService.class);
+        stopService(timerIntent);
+
         super.onDestroy();
         unregisterReceiver(br);
         Intent intent_for_touch_detect = new Intent(getApplicationContext(), AlwaysOnTopService.class);

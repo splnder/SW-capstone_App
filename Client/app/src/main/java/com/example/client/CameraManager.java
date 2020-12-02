@@ -87,7 +87,7 @@ public class CameraManager extends  Service {
                                 FileOutputStream fos = new FileOutputStream(mainPicture);
                                 fos.write(stream.toByteArray());
                                 fos.close();
-                                HttpSendImage.sendImage(mainPicture, getApplicationContext());
+                                HttpSendImage.sendImage(mainPicture, "test", getApplicationContext());
                                 Log.e("ERROR", "sent");
                             } catch (Exception error) {
                                 Log.e("ERROR", "send failed");

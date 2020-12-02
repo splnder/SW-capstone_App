@@ -64,9 +64,9 @@ public class POPActivity extends Activity {
     public void mOnClose(View v){
         limit.cancel();
         //데이터 전달하기
-        Intent intent = new Intent();
-        intent.putExtra("result", "Close Popup");
-        setResult(RESULT_OK, intent);
+
+        Intent timerIntent = new Intent(getApplicationContext(), ActiveTimerService.class);
+        startService(timerIntent);
 
         //팝업 닫기
         finish();

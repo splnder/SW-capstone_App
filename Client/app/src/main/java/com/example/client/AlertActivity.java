@@ -26,7 +26,7 @@ public class AlertActivity extends Activity {
     private static final String NONACTIVE_MSG = "활동 없음";
     private static final String FALLDOWN_MSG = "쓰러짐";
     private AlertActivity popup = this;
-    Server server = new Server();
+    private String event;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,9 +39,11 @@ public class AlertActivity extends Activity {
 
         if(getIntent().getStringExtra("alert").equals("activePost")){
             alertInfo.setText(NONACTIVE_MSG);
+            event = "A";
         }
         else{
             alertInfo.setText(FALLDOWN_MSG);
+            event = "F";
         }
 
         new Thread(new Runnable() {
@@ -110,13 +112,18 @@ public class AlertActivity extends Activity {
                             bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), mat, true);
                             ByteArrayOutputStream stream = new ByteArrayOutputStream();
                             //돌아가있던 이미지를 회전시킴
-                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+
+                            double aspectRatio = (double) bitmap.getHeight() / (double) bitmap.getWidth();
+                            int targetHeight = (int) (100 * aspectRatio);
+                            Bitmap result = Bitmap.createScaledBitmap(bitmap, 100, targetHeight, false);
+
+
+                            result.compress(Bitmap.CompressFormat.PNG, 100, stream);
+
 
                             if (!pictureFileDir.exists() && !pictureFileDir.mkdirs()) {
                                 pictureFileDir.mkdirs();
                             }
-                            Log.e("CALL", "CALL getApplicationContext()");
-                            Log.e(getApplicationContext() + "","-OBJECT:");
 
                             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyymmddhhmmss");
                             String date = dateFormat.format(new Date());
@@ -129,7 +136,7 @@ public class AlertActivity extends Activity {
                                 FileOutputStream fos = new FileOutputStream(mainPicture);
                                 fos.write(stream.toByteArray());
                                 fos.close();
-                                HttpSendImage.sendImage(mainPicture, getApplicationContext());
+                                HttpSendImage.sendImage(mainPicture, event, getApplicationContext());
                                 Log.e("ERROR", "sent");
                             } catch (Exception error) {
                                 Log.e("ERROR", "send failed");
