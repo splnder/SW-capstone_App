@@ -58,7 +58,7 @@ public class WebViewActivity extends Activity {
         myWebView.loadUrl("http://101.101.217.202/");
         WebSettings webSettings = myWebView.getSettings(); //getSettings를 사용하면 웹에대헤 다양한 설정을 할 수 있는 WebSettings타입을 가져올 수 있다.
         webSettings.setJavaScriptEnabled(true); //자바스크립트가 사용가능 하도록 설정
-
+        webSettings.setDomStorageEnabled(true);
 
         /*
         myWebView.setWebChromeClient(new WebChromeClient() {
