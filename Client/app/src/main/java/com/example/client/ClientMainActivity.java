@@ -42,14 +42,13 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ExecutionException;
 
 
  public class ClientMainActivity extends AppCompatActivity
  {
     private static final int ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE = 1;
     boolean mainStatus = false;
-    Toolbar toolbar;
-    private Button button1, button2, button3;
     FirebaseMessagingServiceInstance FMS = new FirebaseMessagingServiceInstance();
 
 
@@ -57,17 +56,17 @@ import java.util.TimerTask;
      private static final int PERMISSIONS_REQUEST_CODE = 100;
      String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
-    private Intent gpsListenerIntent;
+    //private Intent gpsListenerIntent;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
 
+    Button startBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_main);
-
 
 
         if(getIntent().hasExtra("alert")){
@@ -93,14 +92,6 @@ import java.util.TimerTask;
 
 
 
-        Intent activeIntent = new Intent(getApplicationContext(),ActivenessCheckService.class);
-        startService(activeIntent);
-
-
-
-
-
-
         //FCM token
         final String[] token = {""};
         FirebaseMessaging.getInstance().getToken()
@@ -121,8 +112,6 @@ import java.util.TimerTask;
                 });
 
 
-        Intent fallIntent = new Intent(ClientMainActivity.this, FalldownDetect.class);
-        startService(fallIntent);
 
 
         //기본 SharedPreferences 환경과 관련된 객체를 얻어옵니다.
@@ -132,8 +121,44 @@ import java.util.TimerTask;
         saveDate();
 
 
-        gpsListenerIntent = new Intent(getApplicationContext(),GPSListener.class);
-        startService(gpsListenerIntent);
+
+        //자동로그인 부분
+        String code;
+        Integer auth= -9;
+        if(com.example.client.PreferenceManager.getBoolean(getApplicationContext(), "isSessionExist")){
+            try {
+                HttpRequest httpRequest = new HttpRequest(getApplicationContext());
+                code = httpRequest.execute("autoLogin").get();
+                Log.e("code", "code is : " + code);
+                if(!code.equals(""))
+                    auth= Integer.valueOf(code);
+
+                if(auth == 0){//피보호자
+                    Log.e("대상","피보호자");
+                    Intent settingIntent = new Intent(getApplicationContext(), SettingActivity.class);
+                    startActivity(settingIntent);
+
+                    overridePendingTransition(R.anim.horizon_exit, R.anim.none);
+                }
+
+                else if(auth ==1 || auth == 2) {//보호자, 보호센터
+                    Log.e("대상","보호자, 센터");
+                    Intent webViewIntent = new Intent(getApplicationContext(), WebViewActivity.class);
+                    startActivity(webViewIntent);
+                }
+
+
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        
+        //gpsListenerIntent = new Intent(getApplicationContext(),GPSListener.class);
+        //startService(gpsListenerIntent);
     }
 
     public void saveDate(){
@@ -145,8 +170,8 @@ import java.util.TimerTask;
     @Override
     public void onStart() {
         super.onStart();
-        Intent activeIntent = new Intent(getApplicationContext(),ActivenessCheckService.class);
-        startService(activeIntent);
+        //Intent activeIntent = new Intent(getApplicationContext(),ActivenessCheckService.class);
+        //startService(activeIntent);
     }
      @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -176,12 +201,10 @@ import java.util.TimerTask;
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(gpsListenerIntent!=null){
-            stopService(gpsListenerIntent);
-        }
+        //if(gpsListenerIntent!=null){
+        //    stopService(gpsListenerIntent);
+        //}
         mainStatus = false;
-        Intent intent = new Intent( getApplicationContext(),ActivenessCheckService.class);
-        stopService(intent);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -412,7 +435,6 @@ import java.util.TimerTask;
              Log.w("앱에서 보낸값",id+", "+pw);
 
              HttpRequest httpRequest = new HttpRequest(getApplicationContext());
-             Log.e("처리중","..............");
              String result = httpRequest.execute("login",id,pw).get();
 
              Log.e("받은값",result);
@@ -455,8 +477,10 @@ import java.util.TimerTask;
          finish();
         return true;
      }
-     public void startCheck(View v){
+     public boolean startCheck(View v){
+         Log.e("시작","시작");
 
 
+         return true;
      }
 }

@@ -20,11 +20,14 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/startButton"
-            style="?attr/materialButtonOutlinedStyle"
+            style="?attr/materialButtonToggleGroupStyle"
             android:layout_width="300dp"
             android:layout_height="200dp"
             android:text="시작하기"
+            android:textColor="@color/colorPrimary"
             android:textSize="60dp"
+
+            android:onClick="startCheck"
             android:backgroundTint="@color/colorAccent"
             app:iconSize="50dp"
             app:layout_constraintBottom_toBottomOf="parent"

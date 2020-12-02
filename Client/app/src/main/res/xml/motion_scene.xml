@@ -12,7 +12,11 @@
 
         <OnClick
 
-            motion:targetId="@+id/startButton"></OnClick>
+            motion:targetId="@+id/startButton"
+            motion:clickAction="transitionToEnd"
+            android:onClick="startCheck"
+
+            ></OnClick>
 
 
     </Transition>

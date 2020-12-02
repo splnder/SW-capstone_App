@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -45,6 +46,12 @@ public class GPSListener extends Service implements LocationListener {
 
     public GPSListener(Context context) {
         this.mContext = context;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Toast.makeText(getApplicationContext(), "위치 감지가 활성화되었습니다.", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -117,4 +124,13 @@ public class GPSListener extends Service implements LocationListener {
     public IBinder onBind(Intent intent) {
         return null;
     }
+
+
+    @Override
+    public void onDestroy() {
+        Toast.makeText(getApplicationContext(), "위치 감지가 비활성화되었습니다.", Toast.LENGTH_LONG).show();
+
+        super.onDestroy();
+    }
+
 }

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -23,7 +24,8 @@ public class ActivenessCheckService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        Log.d("service","on_create");
+        Toast.makeText(getApplicationContext(), "활동감지가 활성화되었습니다.", Toast.LENGTH_LONG).show();
+
 
         br = new com.example.client.ScreenOnOffBroadcastReceiver();
 
@@ -51,6 +53,8 @@ public class ActivenessCheckService extends Service {
 
     @Override
     public void onDestroy() {
+        Toast.makeText(getApplicationContext(), "활동감지가 비활성화되었습니다.", Toast.LENGTH_LONG).show();
+        
         super.onDestroy();
         unregisterReceiver(br);
         Intent intent_for_touch_detect = new Intent(getApplicationContext(), AlwaysOnTopService.class);

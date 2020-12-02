@@ -4,42 +4,85 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background2"
-    tools:context=".OptionActivity">
+    android:background="@drawable/subbackground"
+    tools:context=".SettingActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp">
-    </androidx.appcompat.widget.Toolbar>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="설 정"
-        android:textColor="#FFFFFF"
-        android:textSize="35dp"
+        android:text="현재 기능은"
+        android:textColor="@color/colorPrimary"
+        android:textSize="50dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.15" />
+        app:layout_constraintVertical_bias="0.144" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/actButton"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="꺼진"
+        android:textSize="45dp"
+        android:onClick="setAct"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3" />
+
+
+
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/fallButton"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="꺼진"
+        android:textSize="45dp"
+        android:onClick="setFall"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.6" />
+
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/gpsButton"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="꺼진"
+        android:textSize="45dp"
+        android:onClick="setGPS"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.45" />
+
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:text="활동 감지"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="활동 감지는"
         android:textStyle="bold"
         android:textColor="#FFFFFF"
-        android:textSize="30dp"
+        android:textSize="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.100"
@@ -49,133 +92,90 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:text="쓰러짐 감지"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="쓰러짐 감지는"
         android:textStyle="bold"
         android:textColor="#FFFFFF"
-        android:textSize="30dp"
+        android:textSize="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.100"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.450" />
+        app:layout_constraintVertical_bias="0.6" />
+
+
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:text="GPS 감지"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="위치 감지는"
         android:textStyle="bold"
         android:textColor="#FFFFFF"
-        android:textSize="30dp"
+        android:textSize="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.100"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.6" />
+        app:layout_constraintVertical_bias="0.45" />
 
-    <Switch
-        android:id="@+id/switch1"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="OFF"
-        android:textSize="20dp"
+
+
+    <TextView
+        android:id="@+id/endtext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="상태입니다"
         android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:textSize="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.650"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.300" />
+        app:layout_constraintVertical_bias="0.73" />
 
-    <Switch
-        android:id="@+id/switch2"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="OFF"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.650"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.450" />
-
-    <Switch
-        android:id="@+id/switch3"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="OFF"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.650"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.6" />
-
-    <Button
+    <com.google.android.material.button.MaterialButton
+        style="?attr/materialButtonToggleGroupStyle"
         android:id="@+id/setSenderReceiver"
-        android:layout_width="200dp"
-        android:layout_height="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="알림 대상 설정"
-        android:textSize="30dp"
         android:onClick="setSenderReceiver"
+        android:text="알림 대상 설정"
+        android:textSize="45dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.800" />
+        app:layout_constraintVertical_bias="0.975"
+        app:strokeColor="@color/colorPrimary"
+        app:strokeWidth="4dp" />
 
-    <TextView
-        android:id="@+id/textView5"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/setSenderReceiver2"
+        style="?attr/materialButtonToggleGroupStyle"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="ON"
-        android:textSize="20dp"
-        android:textStyle="bold"
+        android:onClick="logout"
+        android:text="로그아웃"
+        android:textColor="#ffffff"
+        android:textSize="30dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        app:icon="@drawable/ic_north_west_black_18dp"
+        app:iconSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.85"
+        app:layout_constraintHorizontal_bias="0.021"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.311" />
+        app:layout_constraintVertical_bias="0.0"
+        app:strokeColor="@color/colorPrimaryDark"
+        app:strokeWidth="4dp" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:text="ON"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.85"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.458" />
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:text="ON"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.850"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.606" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,7 @@ package com.example.client;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -178,8 +179,9 @@ public class HttpRequest extends AsyncTask<String, Long, String> {
                     Log.e("LOGIN", latitude +"/"+ longitude);
 
                     Response response = client.newCall(request).execute();
-                    getVal = response.body().string();
-
+                    JSONObject jsonRes =  new JSONObject(response.body().string());
+                    Log.e("res JSON", String.valueOf(jsonRes));
+                    getVal = jsonRes.getString("code");
 
                     List<String> cookieList = response.headers().values("Set-Cookie");
                     if(cookieList == null){
@@ -189,10 +191,12 @@ public class HttpRequest extends AsyncTask<String, Long, String> {
 
                     String jsessionid = (cookieList .get(0).split(";"))[0];//세션 ID 얻기
                     PreferenceManager.setString(mContext, "sessionID",  jsessionid);
+                    PreferenceManager.setBoolean(mContext, "isSessionExist",  true);
 
                     Log.e("HTTP STATUS", String.valueOf(response.code()));
                     Log.e("SET sessionID to", PreferenceManager.getString(mContext, "sessionID"));
 
+                    Log.e("자동 로그인",String.valueOf(PreferenceManager.getBoolean(mContext, "isSessionExist")));
 
                 } catch (Exception e) {
                     System.err.println(e.toString());
@@ -258,6 +262,34 @@ public class HttpRequest extends AsyncTask<String, Long, String> {
                     String message = response.body().string();
                     System.out.println(message);
 
+                } catch (Exception e) {
+                    System.err.println(e.toString());
+                }
+            }
+            else if(strings[0].equals("autoLogin")){
+                try{
+
+                    Log.e("START", "autoLogin");
+                    OkHttpClient client = new OkHttpClient();
+                    JSONObject jsonInput = new JSONObject();
+
+                    MediaType JSON = MediaType.get("application/json; charset=utf-8");
+
+                    Request request = new Request.Builder()
+                            .addHeader("Cookie", PreferenceManager.getString(mContext, "sessionID"))
+                            .url("http://101.101.217.202:9000/check-session")
+                            .build();
+
+                    Response response = client.newCall(request).execute();
+                    JSONObject jsonRes =  new JSONObject(response.body().string());
+                    Log.e("res JSON", String.valueOf(jsonRes));
+
+                    String name = (String) jsonRes.getString("name");
+                    getVal = jsonRes.getString("code");
+
+                    Log.e("NAME", name);
+
+                    Log.e("CODE", getVal);
                 } catch (Exception e) {
                     System.err.println(e.toString());
                 }

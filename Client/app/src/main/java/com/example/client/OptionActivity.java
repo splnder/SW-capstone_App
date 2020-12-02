@@ -28,9 +28,6 @@ public class OptionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option);
 
-        sw1 = findViewById(R.id.switch1);
-        sw2 = findViewById(R.id.switch2);
-        sw3 = findViewById(R.id.switch3);
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         boolean silent1 = settings.getBoolean("switchkey1", true);
         boolean silent2 = settings.getBoolean("switchkey2", true);

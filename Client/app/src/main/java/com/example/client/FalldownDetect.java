@@ -9,6 +9,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 
 
 import static java.lang.Math.abs;
@@ -52,9 +53,13 @@ public class FalldownDetect extends Service implements SensorEventListener {
     public IBinder onBind(Intent intent) {
         return null;
     }
+
+
     @Override
     public void onCreate() {
         super.onCreate();
+
+        Toast.makeText(getApplicationContext(), "쓰러짐 감지가 활성화되었습니다.", Toast.LENGTH_LONG).show();
 
         Log.d(TAG, "onCreate: Initializing Sensor Services");
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -248,5 +253,11 @@ public class FalldownDetect extends Service implements SensorEventListener {
     }
 
 
+    @Override
+    public void onDestroy() {
+        Toast.makeText(getApplicationContext(), "쓰러짐 감지가 비활성화되었습니다.", Toast.LENGTH_LONG).show();
+
+        super.onDestroy();
+    }
 
 }
