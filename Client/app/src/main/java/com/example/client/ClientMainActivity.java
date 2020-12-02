@@ -158,8 +158,8 @@ import java.util.concurrent.ExecutionException;
     }
 
     public void saveDate(){
-        editor.putString("home_latitude","37.4580381");
-        editor.putString("home_longitude","127.0182252");
+        editor.putString("home_latitude","37.4068");
+        editor.putString("home_longitude","127.129");
         editor.apply();
     }
 
