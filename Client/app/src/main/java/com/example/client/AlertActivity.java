@@ -28,6 +28,8 @@ public class AlertActivity extends Activity {
     private AlertActivity popup = this;
     private String event;
 
+    private int picSize = 500;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -114,8 +116,8 @@ public class AlertActivity extends Activity {
                             //돌아가있던 이미지를 회전시킴
 
                             double aspectRatio = (double) bitmap.getHeight() / (double) bitmap.getWidth();
-                            int targetHeight = (int) (100 * aspectRatio);
-                            Bitmap result = Bitmap.createScaledBitmap(bitmap, 100, targetHeight, false);
+                            int targetHeight = (int) (picSize * aspectRatio);
+                            Bitmap result = Bitmap.createScaledBitmap(bitmap, picSize, targetHeight, false);
 
 
                             result.compress(Bitmap.CompressFormat.PNG, 100, stream);
