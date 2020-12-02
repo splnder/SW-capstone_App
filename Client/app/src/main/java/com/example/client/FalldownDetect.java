@@ -59,7 +59,7 @@ public class FalldownDetect extends Service implements SensorEventListener {
     public void onCreate() {
         super.onCreate();
         Toast.makeText(getApplicationContext(), "쓰러짐 감지가 활성화되었습니다.", Toast.LENGTH_LONG).show();
-        boolean onFall = true;
+        onFall = true;
         Log.d(TAG, "onCreate: Initializing Sensor Services");
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -132,12 +132,16 @@ public class FalldownDetect extends Service implements SensorEventListener {
                         flag=0;
                         //api request
 
-                        Intent popIntent = new Intent(getApplicationContext(), AlertChanceActivity.class);
-                        popIntent.putExtra("alert","fallPost");
-                        popIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(popIntent);
+                        if(onFall){
+                            Intent popIntent = new Intent(getApplicationContext(), AlertChanceActivity.class);
+                            popIntent.putExtra("alert","fallPost");
+                            popIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(popIntent);
+                        }
 
                     } else {
+
+                        System.out.println("no fall!!!!");
                         MAXch = 0;
                     }
                 }
