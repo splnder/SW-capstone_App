@@ -11,7 +11,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class ActiveTimerService extends Service {
-    private static final int ALERT_DELAY_TIME = 10; //메세지 띄우기 전까지의 시간 (초 단위)
+    private static final int ALERT_DELAY_TIME = 5; //메세지 띄우기 전까지의 시간 (초 단위)
     private static final String WAKELOCK_TAG = "------------------------:wakelock";
     static int counter;
 
@@ -46,7 +46,6 @@ public class ActiveTimerService extends Service {
                     Intent popIntent = new Intent(getApplicationContext(), AlertChanceActivity.class);
                     popIntent.putExtra("alert","activePost");
                     popIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
                     startActivity(popIntent);
                 }
 

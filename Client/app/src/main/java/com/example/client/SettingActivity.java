@@ -99,6 +99,7 @@ public class SettingActivity extends Activity {
             gpsBtn.setText("켜진");
             PreferenceManager.setBoolean(getApplicationContext(), "gpsFuncService", true);
         }
+
     }
 
 

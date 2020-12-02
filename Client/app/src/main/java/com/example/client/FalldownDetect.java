@@ -134,16 +134,11 @@ public class FalldownDetect extends Service implements SensorEventListener {
                     new Thread(new Runnable() {
                         @Override public void run() {
 
-                            Intent intent = new Intent(getApplicationContext(),ClientMainActivity.class);
-                            intent.putExtra("alert","fallPost");
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                            
-                            /* 취소 가능창 먼저 띄우게끔. 이건 보류
-                            Intent intent = new Intent(getApplicationContext(), Server.class);
-                            intent.putExtra("fallPost","true");
-                            startActivity(intent);
-                            */
+                            Intent popIntent = new Intent(getApplicationContext(), AlertChanceActivity.class);
+                            popIntent.putExtra("alert","fallPost");
+                            popIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(popIntent);
+
                         }
                     }).start();
 

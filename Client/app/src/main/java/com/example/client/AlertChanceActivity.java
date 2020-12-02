@@ -21,12 +21,14 @@ import java.util.TimerTask;
 public class AlertChanceActivity extends Activity {
     private static final String NONACTIVE_MSG = "활동없음이\n감지되었습니다";
     private static final String FALLDOWN_MSG = "쓰러짐이\n감지되었습니다";
-    private static final int ALERT_DELAY_TIME = 10; //메세지 확인 누르기까지 기다리는 시간(5초 단위)
+    private static final int ALERT_DELAY_TIME = 3; //메세지 확인 누르기까지 기다리는 시간(5초 단위)
     static int counter;
     Timer count = new Timer();
     TimerTask limit;
     Ringtone rt;
     AudioManager audio;
+
+    boolean isNonActive;
     int soundLevel=1;
     double soundM;
     @Override
@@ -51,9 +53,12 @@ public class AlertChanceActivity extends Activity {
 
         if(getIntent().getStringExtra("alert").equals("activePost")){
             alertInfo.setText(NONACTIVE_MSG);
+            isNonActive = true;
         }
+
         else{
             alertInfo.setText(FALLDOWN_MSG);
+            isNonActive = false;
         }
 
         limit  = new TimerTask(){
@@ -61,11 +66,13 @@ public class AlertChanceActivity extends Activity {
             public void run(){
                 Log.e(getApplicationContext() + "알람 보내기", counter*5 + "초");
                 counter++;
+
                 if (soundLevel<=soundM)
                     audio.setStreamVolume(AudioManager.STREAM_RING,soundLevel++,AudioManager.FLAG_ALLOW_RINGER_MODES);
                 if(counter == ALERT_DELAY_TIME) {
                     counter=0;
                     this.cancel();
+                    rt.stop();
                     Intent alertIntent = new Intent(getApplicationContext(), AlertFinalActivity.class);
                     alertIntent.putExtra("alert",getIntent().getStringExtra("alert"));
                     startActivity(alertIntent);
@@ -85,8 +92,10 @@ public class AlertChanceActivity extends Activity {
         //데이터 전달하기
 
         rt.stop();
-        Intent timerIntent = new Intent(getApplicationContext(), ActiveTimerService.class);
-        startService(timerIntent);
+        if(isNonActive){
+            Intent timerIntent = new Intent(getApplicationContext(), ActiveTimerService.class);
+            startService(timerIntent);
+        }
 
         //팝업 닫기
         finish();

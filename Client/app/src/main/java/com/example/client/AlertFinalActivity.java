@@ -7,6 +7,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -26,13 +29,17 @@ public class AlertFinalActivity extends Activity {
     private AlertFinalActivity popup = this;
     private String event;
 
+    Ringtone rt;
     private int picSize = 500;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
+
+
+        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+        rt = RingtoneManager.getRingtone(getApplicationContext(),notification);
+        rt.play();
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.alert_view);
         final TextView alertInfo = (TextView)findViewById(R.id.alertText);
