@@ -31,11 +31,13 @@ public class SettingActivity extends Activity {
         actBtn = (Button)findViewById(R.id.actButton);
         fallBtn = (Button)findViewById(R.id.fallButton);
         gpsBtn = (Button)findViewById(R.id.gpsButton);
+
         if(PreferenceManager.getBoolean(getApplicationContext(), "non-actService")){
             startService(activeIntent);
             actBtn.setText("켜진");
         }
         else{
+            stopService(activeIntent);
             actBtn.setText("꺼진");
         }
 
@@ -44,6 +46,7 @@ public class SettingActivity extends Activity {
             fallBtn.setText("켜진");
         }
         else{
+            stopService(fallIntent);
             fallBtn.setText("꺼진");
         }
 
@@ -52,6 +55,7 @@ public class SettingActivity extends Activity {
             gpsBtn.setText("켜진");
         }
         else{
+            stopService(gpsIntent);
             gpsBtn.setText("꺼진");
         }
     }
@@ -113,6 +117,11 @@ public class SettingActivity extends Activity {
     public void logout(View view) {
         PreferenceManager.setBoolean(getApplicationContext(), "isSessionExist", false);
         Intent loginIntent = new Intent(getApplicationContext(), ClientMainActivity.class);
+
+
+        PreferenceManager.setBoolean(getApplicationContext(), "non-actService", false);
+        PreferenceManager.setBoolean(getApplicationContext(), "fallFuncService", false);
+        PreferenceManager.setBoolean(getApplicationContext(), "gpsFuncService", false);
 
         actBtn.setText("꺼진");
         fallBtn.setText("꺼진");

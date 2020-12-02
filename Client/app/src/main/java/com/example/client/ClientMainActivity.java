@@ -134,6 +134,7 @@ import java.util.concurrent.ExecutionException;
                     startActivity(settingIntent);
 
                     overridePendingTransition(R.anim.horizon_exit, R.anim.none);
+                    finish();
                 }
 
                 else if(auth ==1 || auth == 2) {//보호자, 보호센터
@@ -141,6 +142,7 @@ import java.util.concurrent.ExecutionException;
 
                     Intent webViewIntent = new Intent(getApplicationContext(), WebViewActivity.class);
                     startActivity(webViewIntent);
+                    finish();
                 }
 
 

@@ -18,7 +18,7 @@ import static java.lang.Math.abs;
 public class FalldownDetect extends Service implements SensorEventListener {
 
     private static final String TAG = "DetectFall";
-
+    private boolean onFall;
     private SensorManager sensorManager;
     Sensor accelerometer;
 
@@ -58,9 +58,8 @@ public class FalldownDetect extends Service implements SensorEventListener {
     @Override
     public void onCreate() {
         super.onCreate();
-
         Toast.makeText(getApplicationContext(), "쓰러짐 감지가 활성화되었습니다.", Toast.LENGTH_LONG).show();
-
+        boolean onFall = true;
         Log.d(TAG, "onCreate: Initializing Sensor Services");
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -84,69 +83,66 @@ public class FalldownDetect extends Service implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        if(event.sensor == mGgyroSensor) {
 
-            double gyroX = event.values[0];
-            double gyroY = event.values[1];
-            double gyroZ = event.values[2];
+            if(event.sensor == mGgyroSensor) {
 
-            dt = (event.timestamp - timestamp) * NS2S;
-            timestamp = event.timestamp;
+                double gyroX = event.values[0];
+                double gyroY = event.values[1];
+                double gyroZ = event.values[2];
 
-            if (dt - timestamp * NS2S != 0) {
+                dt = (event.timestamp - timestamp) * NS2S;
+                timestamp = event.timestamp;
 
-                pitch = pitch + gyroY * dt;
-                roll = roll + gyroX * dt;
-                yaw = yaw + gyroZ * dt;
+                if (dt - timestamp * NS2S != 0) {
 
-                change = abs(gyroX * dt + gyroY * dt + gyroZ * dt);
-                MAXch = MAXch > change ? MAXch : change;
+                    pitch = pitch + gyroY * dt;
+                    roll = roll + gyroX * dt;
+                    yaw = yaw + gyroZ * dt;
+
+                    change = abs(gyroX * dt + gyroY * dt + gyroZ * dt);
+                    MAXch = MAXch > change ? MAXch : change;
                /* if (MAXch > 0.7)
                     text_MAXch.setText("쓰러짐");*/
-            }
-        }
-
-        if(event.sensor == accelerometer) {
-            acc = Math.sqrt(Math.pow(event.values[0], 2)
-                    + Math.pow(event.values[1], 2)
-                    + Math.pow(event.values[2], 2)
-            );
-
-            if (acc0 == 0) acc0 = acc;
-
-            enqueue(acc - acc0);
-            acc0 = acc;
-            //printQueue();
-
-
-            //if (maxQueue() > THRESHOLD_2) {
-            if(MAXch > 0.6 && maxQueue() > THRESHOLD_2){
-                System.out.println("fall?");
-                flag = 1;
-            }
-
-            if(flag ==1)
-            {
-                if (accFalldown()) {
-                    System.out.println("fall!!!!");
-                    flag=0;
-                    //api request
-                    new Thread(new Runnable() {
-                        @Override public void run() {
-
-                            Intent popIntent = new Intent(getApplicationContext(), AlertChanceActivity.class);
-                            popIntent.putExtra("alert","fallPost");
-                            popIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(popIntent);
-
-                        }
-                    }).start();
-
-                } else {
-                    MAXch = 0;
                 }
             }
-        }
+
+            if(event.sensor == accelerometer) {
+                acc = Math.sqrt(Math.pow(event.values[0], 2)
+                        + Math.pow(event.values[1], 2)
+                        + Math.pow(event.values[2], 2)
+                );
+
+                if (acc0 == 0) acc0 = acc;
+
+                enqueue(acc - acc0);
+                acc0 = acc;
+                //printQueue();
+
+
+                //if (maxQueue() > THRESHOLD_2) {
+                if(MAXch > 0.6 && maxQueue() > THRESHOLD_2){
+                    System.out.println("fall?");
+                    flag = 1;
+                }
+
+                if(flag ==1)
+                {
+                    if (accFalldown()) {
+                        System.out.println("fall!!!!");
+                        flag=0;
+                        //api request
+
+                        Intent popIntent = new Intent(getApplicationContext(), AlertChanceActivity.class);
+                        popIntent.putExtra("alert","fallPost");
+                        popIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(popIntent);
+
+                    } else {
+                        MAXch = 0;
+                    }
+                }
+            }
+        
     }
 
 
@@ -179,8 +175,7 @@ public class FalldownDetect extends Service implements SensorEventListener {
             return false;
     }
 
-    public void enqueue(double acc)
-    {
+    public void enqueue(double acc){
         if(isFull()){
             if(rear == this.queSize-1){
                 rear = (front+1)%this.queSize;
@@ -220,8 +215,7 @@ public class FalldownDetect extends Service implements SensorEventListener {
         return max;
     }
 
-    public double avgQueue()
-    {
+    public double avgQueue(){
         double avg;
         double sum=0;
         int count = 0;
@@ -250,6 +244,7 @@ public class FalldownDetect extends Service implements SensorEventListener {
 
     @Override
     public void onDestroy() {
+        onFall= false;
         Toast.makeText(getApplicationContext(), "쓰러짐 감지가 비활성화되었습니다.", Toast.LENGTH_LONG).show();
 
         super.onDestroy();
