@@ -37,7 +37,7 @@ public class GPSListener extends Service implements LocationListener {
 
     private boolean isInHome = true;
 
-    private final float eventDiameter = 3;
+    private final float eventDiameter = 2;
 
     private Location location;
 
