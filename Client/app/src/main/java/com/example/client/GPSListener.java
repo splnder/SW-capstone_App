@@ -35,7 +35,7 @@ public class GPSListener extends Service implements LocationListener {
 
     private Location homeLocation;
 
-    private boolean isInHome = false;
+    private boolean isInHome = true;
 
     private final float eventDiameter = 3;
 
@@ -61,7 +61,7 @@ public class GPSListener extends Service implements LocationListener {
 
         homeLatitude = preferences.getString("home_latitude","0");
         homeLongitude = preferences.getString("home_longitude","0");
-
+        Log.e("lkjk",homeLatitude + " " + homeLongitude);
         homeLocation = new Location("home");
         homeLocation.setLatitude(Double.parseDouble(homeLatitude));
         homeLocation.setLongitude(Double.parseDouble(homeLongitude));
@@ -80,14 +80,15 @@ public class GPSListener extends Service implements LocationListener {
     public void onLocationChanged(@NonNull Location location) {
         location.getProvider();
         // calculate distance
-        //Log.e("onLocationChanged",Double.toString(homeLocation.distanceTo(location)));
+        Log.e("onLocationChanged",Double.toString(homeLocation.distanceTo(location)));
+        Log.e("onLocationChanged",Double.toString(location.getLatitude()) +" " + Double.toString(location.getLongitude()));
         if(homeLocation.distanceTo(location)<eventDiameter){//in home
             if(!isInHome){
                 Log.e("onLocationChanged","in home");
                 isInHome = true;
                 //request home in alarm
                 HttpRequest httpRequest = new HttpRequest(getApplicationContext());
-                httpRequest.execute("homeInPost");
+                httpRequest.execute("homeInPost",Double.toString(location.getLatitude()), Double.toString(location.getLongitude()));
             }
         }
         else{
@@ -96,7 +97,7 @@ public class GPSListener extends Service implements LocationListener {
                Log.e("onLocationChanged","out home");
                //request home out alarm
                HttpRequest httpRequest = new HttpRequest(getApplicationContext());
-               httpRequest.execute("homeOutPost");
+               httpRequest.execute("homeOutPost",Double.toString(location.getLatitude()), Double.toString(location.getLongitude()));
             }
         }
 
