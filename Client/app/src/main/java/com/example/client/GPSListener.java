@@ -129,6 +129,7 @@ public class GPSListener extends Service implements LocationListener {
 
     @Override
     public void onDestroy() {
+        locationManager.removeUpdates(this);
         Toast.makeText(getApplicationContext(), "위치 감지가 비활성화되었습니다.", Toast.LENGTH_LONG).show();
 
         super.onDestroy();
