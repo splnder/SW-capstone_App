@@ -86,17 +86,22 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".FalldownDetect" />
+        <service android:name=".FalldownDetect"
+            android:stopWithTask="true"/>
         <service
             android:name=".ActiveTimerService"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true"
+            android:stopWithTask="true"/>
         <service
             android:name=".AlwaysOnTopService"
             android:enabled="true"
-            android:permission="android.permission.SYSTEM_ALERT_WINDOW" />
-        <service android:name=".ActivenessCheckService" />
-        <service android:name=".GPSListener" />
+            android:permission="android.permission.SYSTEM_ALERT_WINDOW"
+            android:stopWithTask="true"/>
+        <service android:name=".ActivenessCheckService"
+            android:stopWithTask="true"/>
+        <service android:name=".GPSListener"
+            android:stopWithTask="true"/>
         <service android:name=".CameraManager" />
     </application>
 
