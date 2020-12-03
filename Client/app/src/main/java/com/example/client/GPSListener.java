@@ -88,7 +88,7 @@ public class GPSListener extends Service implements LocationListener {
                 isInHome = true;
                 //request home in alarm
                 HttpRequest httpRequest = new HttpRequest(getApplicationContext());
-                httpRequest.execute("homeInPost",Double.toString(location.getLatitude()), Double.toString(location.getLongitude()));
+                httpRequest.execute("homeInPost");
             }
         }
         else{
@@ -97,7 +97,7 @@ public class GPSListener extends Service implements LocationListener {
                Log.e("onLocationChanged","out home");
                //request home out alarm
                HttpRequest httpRequest = new HttpRequest(getApplicationContext());
-               httpRequest.execute("homeOutPost",Double.toString(location.getLatitude()), Double.toString(location.getLongitude()));
+               httpRequest.execute("homeOutPost");
             }
         }
 
