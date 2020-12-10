@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -49,6 +50,9 @@ public class FirebaseMessagingServiceInstance extends FirebaseMessagingService {
     public String FirebaseAlarmBody = "";
     public RemoteMessage remoteMessage;
 
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
+
     @Override
     public void onNewToken(String token) {
         Log.d(TAG, "Refreshed token: " + token);
@@ -59,34 +63,12 @@ public class FirebaseMessagingServiceInstance extends FirebaseMessagingService {
         //sendRegistrationToServer(token);
         writeTokenLog(this,token);
         Log.d(TAG,token);
-        registerAppWithToken(token);
+        //registerAppWithToken(token);
 
     }
 
     public void registerAppWithToken(String token){
-        try{
-            OkHttpClient client = new OkHttpClient();
 
-            JSONObject jsonInput = new JSONObject();
-
-            jsonInput.put("token",token);
-            jsonInput.put("userId",getApplication().getString(R.string.user_id));
-
-            MediaType JSON = MediaType.get("application/json; charset=utf-8");
-            RequestBody reqBody = RequestBody.create(jsonInput.toString(),JSON);
-            Request request = new Request.Builder()
-                    .url("http://101.101.217.202:9000/user/has-app/true")
-                    .post(reqBody)
-                    .build();
-
-            Response response = client.newCall(request).execute();
-
-            String message = response.body().string();
-            System.out.println(message);
-
-        } catch (Exception e) {
-            System.err.println(e.toString());
-        }
     }
 
 
@@ -105,7 +87,8 @@ public class FirebaseMessagingServiceInstance extends FirebaseMessagingService {
     }
 
     private void sendNotification(Map<String,String> map) {
-        Intent intent = new Intent(this, ClientMainActivity.class);
+        Intent intent = new Intent(this, WebViewActivity.class);
+        intent.putExtra("pushAlarmAccess",true);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);

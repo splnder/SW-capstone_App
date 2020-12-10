@@ -2,6 +2,7 @@ package com.example.client;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +19,8 @@ import android.widget.Button;
 import java.util.List;
 
 public class WebViewActivity extends Activity {
+
+    private SharedPreferences preferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,7 +58,16 @@ public class WebViewActivity extends Activity {
 
         myWebView = (WebView) findViewById(R.id.webview); //레이아웃에서 웹뷰를 가져온다
         myWebView.setWebViewClient(new WebClient()); //액티비티 내부에서 웹브라우저가 띄워지도록 설정
-        myWebView.loadUrl("http://101.101.217.202/");
+
+        if(getIntent().hasExtra("pushAlarmAccess")){
+            if(getIntent().getBooleanExtra("pushAlarmAccess", false)){
+                myWebView.loadUrl("http://101.101.217.202/alarms");
+            }
+        }
+        else{
+            myWebView.loadUrl("http://101.101.217.202/");
+        }
+
         WebSettings webSettings = myWebView.getSettings(); //getSettings를 사용하면 웹에대헤 다양한 설정을 할 수 있는 WebSettings타입을 가져올 수 있다.
         webSettings.setJavaScriptEnabled(true); //자바스크립트가 사용가능 하도록 설정
         webSettings.setDomStorageEnabled(true);
@@ -118,6 +130,10 @@ public class WebViewActivity extends Activity {
         PreferenceManager.setBoolean(getApplicationContext(), "isSessionExist", false);
         Intent loginIntent = new Intent(getApplicationContext(), ClientMainActivity.class);
 
+        HttpRequest httpRequestForToken = new HttpRequest(getApplicationContext());
+        preferences = android.preference.PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        Log.e("jlkjlksd","jkljlkjsd"+preferences.getString("token","0"));
+        httpRequestForToken.execute("tokenDelete", preferences.getString("token","0"));
 
         startActivity(loginIntent);
         finish();
