@@ -213,6 +213,62 @@ public class HttpRequest extends AsyncTask<String, Long, String> {
                 }
             }
         }
+        else if(strings.length == 2){
+            if(strings[0].equals("tokenPost")){
+                try{
+                    Log.d("token","in registerAppWithToken and try" +  PreferenceManager.getString(mContext, "sessionID"));
+                    OkHttpClient client = new OkHttpClient();
+
+                    JSONObject jsonInput = new JSONObject();
+
+                    jsonInput.put("token", strings[1]);
+
+                    MediaType JSON = MediaType.get("application/json; charset=utf-8");
+                    RequestBody reqBody = RequestBody.create(jsonInput.toString(),JSON);
+                    Request request = new Request.Builder()
+                            .addHeader("Cookie", PreferenceManager.getString(mContext, "sessionID"))
+                            .url("http://101.101.217.202:9000/user/has-app/true")
+                            .post(reqBody)
+                            .build();
+
+                    Response response = client.newCall(request).execute();
+
+                    Log.e("RECEIVED", String.valueOf(response));
+                    String getVala = response.body().toString();
+                    Log.e("RECEIVED", getVala);
+                    Log.e("lksjkljkldjsd","kkkkkw");
+                } catch (Exception e) {
+                    Log.e("token",e.toString());
+                }
+            }
+            if(strings[0].equals("tokenDelete")){
+                try{
+                    Log.d("token","in registerAppWithToken and try" +  PreferenceManager.getString(mContext, "sessionID"));
+                    OkHttpClient client = new OkHttpClient();
+
+                    JSONObject jsonInput = new JSONObject();
+
+                    jsonInput.put("token", strings[1]);
+
+                    MediaType JSON = MediaType.get("application/json; charset=utf-8");
+                    RequestBody reqBody = RequestBody.create(jsonInput.toString(),JSON);
+                    Request request = new Request.Builder()
+                            .addHeader("Cookie", PreferenceManager.getString(mContext, "sessionID"))
+                            .url("http://101.101.217.202:9000/user/token")
+                            .delete(reqBody)
+                            .build();
+
+                    Response response = client.newCall(request).execute();
+
+                    Log.e("RECEIVED", String.valueOf(response));
+                    String getVala = response.body().toString();
+                    Log.e("RECEIVED", getVala);
+                    Log.e("lksjkljkldjsd","kkkkkw");
+                } catch (Exception e) {
+                    Log.e("token",e.toString());
+                }
+            }
+        }
         else if(strings.length == 1){
             if(strings[0].equals("homeInPost")){
                 try{

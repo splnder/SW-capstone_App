@@ -140,6 +140,8 @@ public class FalldownDetect extends Service implements SensorEventListener {
                         }
 
                     } else {
+
+                        System.out.println("no fall!!!!");
                         MAXch = 0;
                     }
                 }

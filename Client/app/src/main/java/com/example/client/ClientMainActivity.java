@@ -85,7 +85,11 @@ import java.util.concurrent.ExecutionException;
             checkRunTimePermission();
         }
 
-
+        //기본 SharedPreferences 환경과 관련된 객체를 얻어옵니다.
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        // SharedPreferences 수정을 위한 Editor 객체를 얻어옵니다.
+        editor = preferences.edit();
+        saveDate();
 
         //FCM token
         final String[] token = {""};
@@ -101,19 +105,19 @@ import java.util.concurrent.ExecutionException;
                         // Get new FCM registration token
                         token[0] = task.getResult();
 
+                        editor.putString("token",token[0]);
+                        editor.apply();
+
                         // Log and toast
                         Log.d("mainActivity", token[0]);
                     }
                 });
 
+        editor.putString("token","aaaa");
+        editor.apply();
 
 
 
-        //기본 SharedPreferences 환경과 관련된 객체를 얻어옵니다.
-        preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        // SharedPreferences 수정을 위한 Editor 객체를 얻어옵니다.
-        editor = preferences.edit();
-        saveDate();
 
 
 
@@ -465,6 +469,10 @@ import java.util.concurrent.ExecutionException;
          }
 
          else if(auth ==1 || auth == 2) {//보호자, 보호센터
+             HttpRequest httpRequestForToken = new HttpRequest(getApplicationContext());
+             preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+             Log.e("ddd",preferences.getString("token","0")+"djkjlkjsk");
+             httpRequestForToken.execute("tokenPost", preferences.getString("token","0"));
              Log.e("대상","보호자, 센터");
              Intent webViewIntent = new Intent(getApplicationContext(), WebViewActivity.class);
 

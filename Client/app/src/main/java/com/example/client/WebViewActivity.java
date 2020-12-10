@@ -3,6 +3,7 @@ package com.example.client;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +20,8 @@ import android.widget.Button;
 import java.util.List;
 
 public class WebViewActivity extends Activity {
+
+    private SharedPreferences preferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,11 +60,20 @@ public class WebViewActivity extends Activity {
 
 
 
+
         webView = (WebView) findViewById(R.id.webview);
         webView.setWebViewClient(new WebClient());
-        webView.loadUrl("http://101.101.217.202/alarms");
+        if(getIntent().hasExtra("pushAlarmAccess")){
+            if(getIntent().getBooleanExtra("pushAlarmAccess", false)){
+                webView.loadUrl("http://101.101.217.202/alarms");
+            }
+        }
+        else{
+            webView.loadUrl("http://101.101.217.202/");
+        }
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+
         webSettings.setDomStorageEnabled(true);
 
         /*
@@ -122,6 +134,10 @@ public class WebViewActivity extends Activity {
         PreferenceManager.setBoolean(getApplicationContext(), "isSessionExist", false);
         Intent loginIntent = new Intent(getApplicationContext(), ClientMainActivity.class);
 
+        HttpRequest httpRequestForToken = new HttpRequest(getApplicationContext());
+        preferences = android.preference.PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        Log.e("jlkjlksd","jkljlkjsd"+preferences.getString("token","0"));
+        httpRequestForToken.execute("tokenDelete", preferences.getString("token","0"));
 
         startActivity(loginIntent);
         finish();
