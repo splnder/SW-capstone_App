@@ -157,6 +157,24 @@
         app:strokeWidth="4dp" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/getReceiverReq"
+        style="?attr/materialButtonToggleGroupStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:onClick="getReceiverReq"
+        android:text="1111"
+        android:textSize="45dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.974"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:strokeColor="@color/colorPrimary"
+        app:strokeWidth="4dp" />
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/setSenderReceiver2"
         style="?attr/materialButtonToggleGroupStyle"
         android:layout_width="wrap_content"

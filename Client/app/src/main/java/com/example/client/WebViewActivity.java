@@ -2,6 +2,7 @@ package com.example.client;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,12 +26,15 @@ public class WebViewActivity extends Activity {
 
         setContentView(R.layout.web_view);
 
-        WebView myWebView = new WebView(this);
-        myWebView.getSettings().setJavaScriptEnabled(true);
+        WebView webView = new WebView(this);
+        webView.getSettings().setJavaScriptEnabled(true);
         CookieManager cookieManager = CookieManager.getInstance();
         cookieManager.setAcceptCookie(true);
-        cookieManager.setAcceptThirdPartyCookies(myWebView, true);
 
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+            cookieManager.setAcceptThirdPartyCookies(webView, true);
+        }
 
         String cookie = PreferenceManager.getString(getApplicationContext(),"sessionID");
 
@@ -48,20 +52,20 @@ public class WebViewActivity extends Activity {
         Log.e("dddd",cookieString3);
         Log.e("dddd",cookieString4);
 
-        cookieManager.setCookie("101.101.217.202",cookieString);
+        cookieManager.setCookie("101.101.217.202",cookie);
         //cookieManager.setCookie("http://101.101.217.202/","BF74A6A8C15844374FFAD98F0B954F22");
 
 
 
-        myWebView = (WebView) findViewById(R.id.webview); //레이아웃에서 웹뷰를 가져온다
-        myWebView.setWebViewClient(new WebClient()); //액티비티 내부에서 웹브라우저가 띄워지도록 설정
-        myWebView.loadUrl("http://101.101.217.202/");
-        WebSettings webSettings = myWebView.getSettings(); //getSettings를 사용하면 웹에대헤 다양한 설정을 할 수 있는 WebSettings타입을 가져올 수 있다.
-        webSettings.setJavaScriptEnabled(true); //자바스크립트가 사용가능 하도록 설정
+        webView = (WebView) findViewById(R.id.webview);
+        webView.setWebViewClient(new WebClient());
+        webView.loadUrl("http://101.101.217.202/alarms");
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
 
         /*
-        myWebView.setWebChromeClient(new WebChromeClient() {
+        webView.setWebChromeClient(new WebChromeClient() {
             public boolean onConsoleMessage(ConsoleMessage cmsg)
             {
 
@@ -72,16 +76,16 @@ public class WebViewActivity extends Activity {
 
 
         });
-        myWebView.setWebViewClient(new WebViewClient(){
+        webView.setWebViewClient(new WebViewClient(){
             @Override
-            public void onPageFinished(WebView view, String url) {
+            public void onPageFinished(webView view, String url) {
                 String myCookies = CookieManager.getInstance().getCookie(url);
                 Log.e("DDDDDDDDDDDDDDDDD",url);
                 Log.e("EEEEEEEEEEEEEEEEEEE", "All the cookies in a string:" + myCookies);
                 view.loadUrl("javascript:console.log(document.cookie);");
             }
             @Override
-            public void onLoadResource(WebView view, String url) {
+            public void onLoadResource(webView view, String url) {
                 if(url.contains(":9000/login")){
                     Log.e("sddddddddddddddssss",url);
                     view.loadUrl("javascript:console.log(document.cookie.toString());");
@@ -94,7 +98,7 @@ public class WebViewActivity extends Activity {
                 super.onLoadResource(view, url);
             }
         });
-        myWebView.loadUrl("http://101.101.217.202/monitoring");
+        webView.loadUrl("http://101.101.217.202/monitoring");
         String cookie1 = cookieManager.getCookie("http://101.101.217.202");
         Log.d("eddage", "Login Cookie : " + cookie1);
 

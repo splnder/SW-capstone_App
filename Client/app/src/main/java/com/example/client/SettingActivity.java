@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 public class SettingActivity extends Activity {
 
@@ -111,6 +110,14 @@ public class SettingActivity extends Activity {
 
         Intent SRIntent = new Intent(getApplicationContext(), SenderReceiverActivity.class);
         startActivity(SRIntent);
+
+    }
+
+
+    public void getReceiverReq(View v){
+
+        Intent RRQIntent = new Intent(getApplicationContext(), ReceiverListActivity.class);
+        startActivity(RRQIntent);
 
     }
 

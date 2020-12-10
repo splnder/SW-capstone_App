@@ -31,6 +31,7 @@ public class AlertChanceActivity extends Activity {
     boolean isNonActive;
     int soundLevel=1;
     double soundM;
+    AlertChanceActivity thisAct = this;
     @Override
 
     public void onCreate(Bundle savedInstanceState) {
@@ -76,7 +77,7 @@ public class AlertChanceActivity extends Activity {
                     Intent alertIntent = new Intent(getApplicationContext(), AlertFinalActivity.class);
                     alertIntent.putExtra("alert",getIntent().getStringExtra("alert"));
                     startActivity(alertIntent);
-
+                    thisAct.finish();
                 }
 
             }

@@ -53,20 +53,16 @@ public class AlertFinalActivity extends Activity {
             event = "F";
         }
 
-        new Thread(new Runnable() {
-            @Override public void run() {
-                Intent intent = new Intent(getApplicationContext(), Server.class);
-                intent.putExtra(getIntent().getStringExtra("alert"),"true");
-                startActivity(intent);
-            }
-        }).start();
+        Intent intent = new Intent(getApplicationContext(), Server.class);
+        intent.putExtra(getIntent().getStringExtra("alert"),"true");
+        startActivity(intent);
 
     }
 
 
     //확인 버튼 클릭
     public void mOnClose(View v){
-        
+        rt.stop();
         //촬영 후 데이터 전송
         openCam();
 

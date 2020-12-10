@@ -47,14 +47,25 @@ public class SenderReceiverActivity extends Activity {
             return;
         }
 
-        Toast.makeText(this, phone_number + "/" + non_active + "/" + fall_down+ "/" + gps, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, phone_number + "/" + non_active + "/" + fall_down+ "/" + gps, Toast.LENGTH_SHORT).show();
+        try{
+            HttpRequest httpRequest = new HttpRequest(getApplicationContext());
+            String name = httpRequest.execute("receiverPost",phone_number, non_active, fall_down, gps).get();
 
-        HttpRequest httpRequest = new HttpRequest(getApplicationContext());
-        httpRequest.execute("receiverPost",phone_number, non_active, fall_down, gps);
+            if(name.equals("")){
+                Toast.makeText(this, "가입되지 않은 회원의 번호입니다.", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Toast.makeText(this, name + "님이 보호자로 등록되었습니다.", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+
+        }catch (Exception e){
+
+        }
         //                                  phone_number      non_active          fall_down     gps
 
 
-        finish();
     }
 
     public void setAct(View view) {

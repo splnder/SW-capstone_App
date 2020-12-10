@@ -67,10 +67,12 @@ public class HttpRequest extends AsyncTask<String, Long, String> {
 
 
                 Response response = client.newCall(request).execute();
+                JSONObject jsonRes =  new JSONObject(response.body().string());
+                Log.e("res JSON", String.valueOf(jsonRes));
+                getVal = jsonRes.getString("name");
 
-                Toast.makeText(mContext, "RECEIVED =====" + String.valueOf(response) , Toast.LENGTH_LONG).show();
+
                 Log.e("RECEIVED", String.valueOf(response));
-                getVal = response.body().toString();
                 Log.e("RECEIVED", getVal);
 
             } catch (Exception e) {
@@ -302,9 +304,31 @@ public class HttpRequest extends AsyncTask<String, Long, String> {
                     System.err.println(e.toString());
                 }
             }
+            else if(strings[0].equals("getReceivers")){
+                try{
+
+                    Log.e("GET", "Receivers");
+                    OkHttpClient client = new OkHttpClient();
+                    JSONObject jsonInput = new JSONObject();
+
+                    MediaType JSON = MediaType.get("application/json; charset=utf-8");
+
+                    Request request = new Request.Builder()
+                            .addHeader("Cookie", PreferenceManager.getString(mContext, "sessionID"))
+                            .url("http://101.101.217.202:9000/user/queue")
+                            .build();
+
+                    Response response = client.newCall(request).execute();
+
+
+                    getVal = response.body().string();
+                } catch (Exception e) {
+                    System.err.println(e.toString());
+                }
+            }
         }
 
-        Log.e("GOT",getVal);
+        Log.e("HttpRequest GOT",getVal);
         return getVal;
     }
 }

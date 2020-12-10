@@ -28,7 +28,8 @@
         motion:constraintSetEnd="@id/s1"
         motion:motionInterpolator="linear">
         <OnSwipe
-            motion:dragDirection="dragRight"/>
+            motion:dragDirection="dragRight"
+            />
     </Transition>
 
 
@@ -66,18 +67,6 @@
         </Constraint>
 
 
-
-
-
-
-
-
-
-
-        <Constraint
-            android:id="@+id/bonk2" />
-        <Constraint
-            android:id="@+id/bonk" />
     </ConstraintSet>
 
 
