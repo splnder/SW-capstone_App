@@ -35,9 +35,9 @@ public class GPSListener extends Service implements LocationListener {
 
     private Location homeLocation;
 
-    private boolean isInHome = false;
+    private boolean isInHome = true;
 
-    private final float eventDiameter = 3;
+    private final float eventDiameter = 2;
 
     private Location location;
 
@@ -61,7 +61,7 @@ public class GPSListener extends Service implements LocationListener {
 
         homeLatitude = preferences.getString("home_latitude","0");
         homeLongitude = preferences.getString("home_longitude","0");
-
+        Log.e("lkjk",homeLatitude + " " + homeLongitude);
         homeLocation = new Location("home");
         homeLocation.setLatitude(Double.parseDouble(homeLatitude));
         homeLocation.setLongitude(Double.parseDouble(homeLongitude));
@@ -80,7 +80,8 @@ public class GPSListener extends Service implements LocationListener {
     public void onLocationChanged(@NonNull Location location) {
         location.getProvider();
         // calculate distance
-        //Log.e("onLocationChanged",Double.toString(homeLocation.distanceTo(location)));
+        Log.e("onLocationChanged",Double.toString(homeLocation.distanceTo(location)));
+        Log.e("onLocationChanged",Double.toString(location.getLatitude()) +" " + Double.toString(location.getLongitude()));
         if(homeLocation.distanceTo(location)<eventDiameter){//in home
             if(!isInHome){
                 Log.e("onLocationChanged","in home");
@@ -128,6 +129,7 @@ public class GPSListener extends Service implements LocationListener {
 
     @Override
     public void onDestroy() {
+        locationManager.removeUpdates(this);
         Toast.makeText(getApplicationContext(), "위치 감지가 비활성화되었습니다.", Toast.LENGTH_LONG).show();
 
         super.onDestroy();

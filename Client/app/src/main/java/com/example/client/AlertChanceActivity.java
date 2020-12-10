@@ -92,7 +92,8 @@ public class AlertChanceActivity extends Activity {
         //데이터 전달하기
 
         rt.stop();
-        if(isNonActive){
+
+        if(PreferenceManager.getBoolean(getApplicationContext(), "non-actService")){
             Intent timerIntent = new Intent(getApplicationContext(), ActiveTimerService.class);
             startService(timerIntent);
         }
