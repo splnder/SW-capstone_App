@@ -116,7 +116,7 @@ public class SettingActivity extends Activity {
 
     public void getReceiverReq(View v){
 
-        Intent RRQIntent = new Intent(getApplicationContext(), ReceiverListActivity.class);
+        Intent RRQIntent = new Intent(getApplicationContext(), ReceiverSetting.class);
         startActivity(RRQIntent);
 
     }

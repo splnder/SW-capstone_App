@@ -193,11 +193,6 @@ public class HttpRequest extends AsyncTask<String, Long, String> {
                         return "-99";
                     }
 
-                    for (String cookie : cookieList) {
-                        Log.e("쿠키 목록들:::::::::::::::", cookie);
-
-                    }
-
 
                     String jsessionid = (cookieList .get(0).split(";"))[0];//세션 ID 얻기
                     PreferenceManager.setString(mContext, "sessionID",  jsessionid);
@@ -266,6 +261,71 @@ public class HttpRequest extends AsyncTask<String, Long, String> {
                     Log.e("lksjkljkldjsd","kkkkkw");
                 } catch (Exception e) {
                     Log.e("token",e.toString());
+                }
+            }
+
+            else if(strings[0].equals("acceptReceiver")){
+                try{
+                    String queID = strings[1];
+                    OkHttpClient client = new OkHttpClient();
+                    JSONObject jsonInput = new JSONObject();
+                    SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+                    Date today = Calendar.getInstance().getTime();
+                    String time = dateFormat.format(today);
+
+                    jsonInput.put( "queueId", queID);
+
+                    MediaType JSON = MediaType.get("application/json; charset=utf-8");
+                    RequestBody reqBody = RequestBody.create(jsonInput.toString(),JSON);
+
+                    Request request = new Request.Builder()
+                            .addHeader("Cookie", PreferenceManager.getString(mContext, "sessionID"))
+                            .url("http://101.101.217.202:9000/user/sender/acceptSR")
+                            .post(reqBody)
+                            .build();
+
+
+                    Response response = client.newCall(request).execute();
+
+                    System.err.println(response.body());
+                    JSONObject jsonRes =  new JSONObject(response.body().string());
+
+                    getVal = jsonRes.getString("result");
+
+                } catch (Exception e) {
+                    System.err.println(e.toString());
+                }
+            }
+
+            else if(strings[0].equals("rejectReceiver")){
+                try{
+                    String queID = strings[1];
+                    OkHttpClient client = new OkHttpClient();
+                    JSONObject jsonInput = new JSONObject();
+                    SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+                    Date today = Calendar.getInstance().getTime();
+                    String time = dateFormat.format(today);
+
+                    jsonInput.put( "queueId", queID);
+
+                    MediaType JSON = MediaType.get("application/json; charset=utf-8");
+                    RequestBody reqBody = RequestBody.create(jsonInput.toString(),JSON);
+
+                    Request request = new Request.Builder()
+                            .addHeader("Cookie", PreferenceManager.getString(mContext, "sessionID"))
+                            .url("http://101.101.217.202:9000/user/rejectSR")
+                            .post(reqBody)
+                            .build();
+
+
+                    Response response = client.newCall(request).execute();
+
+                    getVal = response.body().string();
+                    Log.e("ID", queID);
+                    Log.e("RES", response.toString());
+
+                } catch (Exception e) {
+                    System.err.println(e.toString());
                 }
             }
         }

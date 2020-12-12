@@ -122,48 +122,51 @@ import java.util.concurrent.ExecutionException;
 
 
         //자동로그인 부분
-        String code;
-        Integer auth= -9;
-        if(com.example.client.PreferenceManager.getBoolean(getApplicationContext(), "isSessionExist")){
-            try {
-                HttpRequest httpRequest = new HttpRequest(getApplicationContext());
-                code = httpRequest.execute("autoLogin").get();
-                Log.e("code", "code is : " + code);
-                if(!code.equals(""))
-                    auth= Integer.valueOf(code);
-
-                if(auth == 0){//피보호자
-                    Log.e("대상","피보호자");
-                    Intent settingIntent = new Intent(getApplicationContext(), SettingActivity.class);
-                    startActivity(settingIntent);
-
-                    overridePendingTransition(R.anim.horizon_exit, R.anim.none);
-                    finish();
-                }
-
-                else if(auth ==1 || auth == 2) {//보호자, 보호센터
-                    Log.e("대상","보호자, 센터");
-
-                    Intent webViewIntent = new Intent(getApplicationContext(), WebViewActivity.class);
-                    startActivity(webViewIntent);
-                    finish();
-                }
+        autoLogin();
 
 
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-
-        
         //gpsListenerIntent = new Intent(getApplicationContext(),GPSListener.class);
         //startService(gpsListenerIntent);
     }
 
-    public void saveDate(){
+     private void autoLogin() {
+         String code;
+         Integer auth= -9;
+         if(com.example.client.PreferenceManager.getBoolean(getApplicationContext(), "isSessionExist")){
+             try {
+                 HttpRequest httpRequest = new HttpRequest(getApplicationContext());
+                 code = httpRequest.execute("autoLogin").get();
+                 Log.e("code", "code is : " + code);
+                 if(!code.equals(""))
+                     auth= Integer.valueOf(code);
+
+                 if(auth == 0){//피보호자
+                     Log.e("대상","피보호자");
+                     Intent settingIntent = new Intent(getApplicationContext(), SettingActivity.class);
+                     startActivity(settingIntent);
+
+                     overridePendingTransition(R.anim.horizon_exit, R.anim.none);
+                     finish();
+                 }
+
+                 else if(auth ==1 || auth == 2) {//보호자, 보호센터
+                     Log.e("대상","보호자, 센터");
+
+                     Intent webViewIntent = new Intent(getApplicationContext(), WebViewActivity.class);
+                     startActivity(webViewIntent);
+                     finish();
+                 }
+
+
+             } catch (ExecutionException e) {
+                 e.printStackTrace();
+             } catch (InterruptedException e) {
+                 e.printStackTrace();
+             }
+         }
+     }
+
+     public void saveDate(){
         editor.putString("home_latitude","37.2725965");
         editor.putString("home_longitude","127.0422395");
         editor.apply();
@@ -193,7 +196,7 @@ import java.util.concurrent.ExecutionException;
                 break;
 
             case R.id.item2:
-                Intent intent2 = new Intent(ClientMainActivity.this, AlarmListActivity.class);
+                Intent intent2 = new Intent(ClientMainActivity.this, OptionActivity.class);
                 startActivity(intent2);
                 break;
         }

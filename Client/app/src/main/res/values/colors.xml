@@ -5,4 +5,5 @@
     <color name="colorPrimaryLight">#CABDAC</color>
     <color name="colorAccent">#22FFFFFF</color>
     <color name="colorTextBG">#77FFFFFF</color>
+    <color name="transparent">#1A000000</color>
 </resources>
