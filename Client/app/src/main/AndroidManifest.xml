@@ -38,7 +38,9 @@
             android:value="default_channel_id" />
 
         <activity android:name=".ReceiverSetting"></activity>
-        <activity android:name=".ReceiverAccept" />
+        <activity android:name=".ReceiverListDelete"/>
+        <activity android:name=".ReceiverListActivity"/>
+        <activity android:name=".ReceiverQueueAccept" />
         <activity android:name=".ReceiverQueueActivity" />
         <activity android:name=".SenderReceiverActivity" />
         <activity android:name=".Server" />

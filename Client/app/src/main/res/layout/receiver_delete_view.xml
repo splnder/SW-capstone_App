@@ -37,7 +37,7 @@
             android:layout_marginBottom="3dp"
             android:alpha="0.87"
             android:gravity="center"
-            android:text="위 사용자를 보호자로\n등록하시겠습니까?"
+            android:text="위 보호자를 목록에서\n제거하시겠습니까?"
             android:textSize="35dp" />
     </LinearLayout>
 
@@ -62,7 +62,7 @@
             android:onClick="accept"
             android:padding="16dp"
 
-            android:text="등록"
+            android:text="제거"
             android:textSize="70dp"/>
 
         <LinearLayout

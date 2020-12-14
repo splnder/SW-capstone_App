@@ -36,50 +36,7 @@ public class HttpRequest extends AsyncTask<String, Long, String> {
     protected String doInBackground(String... strings) {
         String getVal="";
         Log.e("InHttpRequest","시작");
-        if(strings.length == 5) {
-            try{
-
-                String phoneNum = strings[1];
-                boolean non_active = strings[2].equals("t");
-                boolean fall_down = strings[3].equals("t");
-                boolean gps = strings[4].equals("t");
-
-
-                OkHttpClient client = new OkHttpClient();
-                JSONObject jsonInput = new JSONObject();
-                SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
-                Date today = Calendar.getInstance().getTime();
-                String time = dateFormat.format(today);
-
-                jsonInput.put( "phone_number", phoneNum);
-                jsonInput.put("non_active", non_active);
-                jsonInput.put("fall_down",fall_down);
-                jsonInput.put("gps",gps);
-
-                MediaType JSON = MediaType.get("application/json; charset=utf-8");
-                RequestBody reqBody = RequestBody.create(jsonInput.toString(),JSON);
-
-                Request request = new Request.Builder()
-                        .addHeader("Cookie", PreferenceManager.getString(mContext, "sessionID"))
-                        .url("http://101.101.217.202:9000/user/set-receiver")
-                        .post(reqBody)
-                        .build();
-
-
-                Response response = client.newCall(request).execute();
-                JSONObject jsonRes =  new JSONObject(response.body().string());
-                Log.e("res JSON", String.valueOf(jsonRes));
-                getVal = jsonRes.getString("name");
-
-
-                Log.e("RECEIVED", String.valueOf(response));
-                Log.e("RECEIVED", getVal);
-
-            } catch (Exception e) {
-                System.err.println(e.toString());
-            }
-        }
-        else if(strings.length == 3){
+        if(strings.length == 3){
             if(strings[0].equals("activePost")){
                 try{
                     latitude = strings[1];
@@ -264,7 +221,7 @@ public class HttpRequest extends AsyncTask<String, Long, String> {
                 }
             }
 
-            else if(strings[0].equals("acceptReceiver")){
+            else if(strings[0].equals("acceptReceiverQueue")){
                 try{
                     String queID = strings[1];
                     OkHttpClient client = new OkHttpClient();
@@ -297,7 +254,7 @@ public class HttpRequest extends AsyncTask<String, Long, String> {
                 }
             }
 
-            else if(strings[0].equals("rejectReceiver")){
+            else if(strings[0].equals("rejectReceiverQueue")){
                 try{
                     String queID = strings[1];
                     OkHttpClient client = new OkHttpClient();
@@ -323,6 +280,69 @@ public class HttpRequest extends AsyncTask<String, Long, String> {
                     getVal = response.body().string();
                     Log.e("ID", queID);
                     Log.e("RES", response.toString());
+
+                } catch (Exception e) {
+                    System.err.println(e.toString());
+                }
+            }
+
+            else if(strings[0].equals("deleteReceiver")){
+                try{
+                    String userID = strings[1];
+                    OkHttpClient client = new OkHttpClient();
+                    JSONObject jsonInput = new JSONObject();
+                    SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+                    Date today = Calendar.getInstance().getTime();
+                    String time = dateFormat.format(today);
+
+                    jsonInput.put( "receiverId", userID);
+
+                    MediaType JSON = MediaType.get("application/json; charset=utf-8");
+                    RequestBody reqBody = RequestBody.create(jsonInput.toString(),JSON);
+
+                    Request request = new Request.Builder()
+                            .addHeader("Cookie", PreferenceManager.getString(mContext, "sessionID"))
+                            .url("http://101.101.217.202:9000/user/sender/deleteSR")
+                            .post(reqBody)
+                            .build();
+
+
+                    Response response = client.newCall(request).execute();
+
+                    getVal = response.body().string();
+                    Log.e("RES", response.toString());
+
+                } catch (Exception e) {
+                    System.err.println(e.toString());
+                }
+            }
+            else if(strings[0].equals("reqToReceiver")){
+                try{
+
+                    String phoneNum = strings[1];
+
+
+                    OkHttpClient client = new OkHttpClient();
+                    JSONObject jsonInput = new JSONObject();
+                    SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+                    Date today = Calendar.getInstance().getTime();
+                    String time = dateFormat.format(today);
+
+                    jsonInput.put( "phone_number", phoneNum);
+
+                    MediaType JSON = MediaType.get("application/json; charset=utf-8");
+                    RequestBody reqBody = RequestBody.create(jsonInput.toString(),JSON);
+
+                    Request request = new Request.Builder()
+                            .addHeader("Cookie", PreferenceManager.getString(mContext, "sessionID"))
+                            .url("http://101.101.217.202:9000//user/sender/requestSR")
+                            .post(reqBody)
+                            .build();
+
+
+                    Response response = client.newCall(request).execute();
+
+                    getVal = response.body().string();
 
                 } catch (Exception e) {
                     System.err.println(e.toString());
@@ -420,7 +440,7 @@ public class HttpRequest extends AsyncTask<String, Long, String> {
                     System.err.println(e.toString());
                 }
             }
-            else if(strings[0].equals("getReceivers")){
+            else if(strings[0].equals("getReceiverQueue")){
                 try{
 
                     Log.e("GET", "Receivers");
@@ -432,6 +452,28 @@ public class HttpRequest extends AsyncTask<String, Long, String> {
                     Request request = new Request.Builder()
                             .addHeader("Cookie", PreferenceManager.getString(mContext, "sessionID"))
                             .url("http://101.101.217.202:9000/user/queue")
+                            .build();
+
+                    Response response = client.newCall(request).execute();
+
+
+                    getVal = response.body().string();
+                } catch (Exception e) {
+                    System.err.println(e.toString());
+                }
+            }
+            else if(strings[0].equals("getReceiverList")){
+                try{
+
+                    Log.e("GET", "Receivers");
+                    OkHttpClient client = new OkHttpClient();
+                    JSONObject jsonInput = new JSONObject();
+
+                    MediaType JSON = MediaType.get("application/json; charset=utf-8");
+
+                    Request request = new Request.Builder()
+                            .addHeader("Cookie", PreferenceManager.getString(mContext, "sessionID"))
+                            .url("http://101.101.217.202:9000/user/sender/getSRList")
                             .build();
 
                     Response response = client.newCall(request).execute();

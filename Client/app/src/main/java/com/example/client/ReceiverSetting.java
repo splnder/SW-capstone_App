@@ -29,6 +29,9 @@ public class ReceiverSetting extends AppCompatActivity {
     }
 
     public void gotoList(View view) {
+        Intent intent = new Intent(this, ReceiverListActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
 

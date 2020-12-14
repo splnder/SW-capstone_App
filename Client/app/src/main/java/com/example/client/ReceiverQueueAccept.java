@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import java.util.concurrent.ExecutionException;
 
-public class ReceiverAccept extends Activity {
+public class ReceiverQueueAccept extends Activity {
     Integer receiverID;
 
 
@@ -45,11 +45,6 @@ public class ReceiverAccept extends Activity {
         return true;
     }
 
-    @Override
-    public void onBackPressed() {
-
-        return;
-    }
 
 
     public void reject(View view) {
@@ -58,7 +53,7 @@ public class ReceiverAccept extends Activity {
         data.putExtra("id", receiverID);
         try{
             HttpRequest httpRequest = new HttpRequest(getApplicationContext());
-            String res = httpRequest.execute("rejectReceiver", String.valueOf(receiverID)).get();
+            String res = httpRequest.execute("rejectReceiverQueue", String.valueOf(receiverID)).get();
             if(res.equals(String.valueOf(receiverID))){
                 Toast.makeText(this, "성공적으로 제거되었습니다", Toast.LENGTH_LONG).show();
 
@@ -89,7 +84,7 @@ public class ReceiverAccept extends Activity {
         data.putExtra("id", receiverID);
         try{
             HttpRequest httpRequest = new HttpRequest(getApplicationContext());
-            String res = httpRequest.execute("acceptReceiver", String.valueOf(receiverID)).get();
+            String res = httpRequest.execute("acceptReceiverQueue", String.valueOf(receiverID)).get();
             if(!res.isEmpty()){
                 Toast.makeText(this, "성공적으로 추가되었습니다", Toast.LENGTH_LONG).show();
 
